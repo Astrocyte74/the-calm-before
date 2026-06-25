@@ -1,0 +1,16 @@
+{
+  "name": "Sam's MCAT — The Calm Before",
+  "short_name": "Calm Before",
+  "description": "An evidence-based calm toolkit for Sam's MCAT: countdown, checklists, breathing, and worry-offloading. Works offline.",
+  "start_url": "sam.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4ecdb",
+  "theme_color": "#221d17",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

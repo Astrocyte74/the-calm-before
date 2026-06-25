@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#221d17">
-<title>The Calm Before — an exam-day calm field guide</title>
+<title>Sam's MCAT — the calm before</title>
 <meta name="description" content="An evidence-based pocket toolkit for steadying the mind before an exam: breathing, worry offloading, sleep, and the science behind them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -388,14 +388,62 @@ footer.foot a{color:#cdbfa6}
   .refs li:last-child{border-bottom:0}
   .refs li::before{content:counter(r);position:absolute;left:0;top:10px;width:22px;height:22px;border:1px solid var(--clay);border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:.6rem;font-weight:700;color:var(--clay)}
   .refs li em{font-style:italic}
+
+  /* ── countdown ── */
+  .countdown-sec{padding-top:30px}
+  .cd-card{position:relative;overflow:hidden;background:linear-gradient(135deg,#234a3a,#18302a);color:#f4ecd9;border-radius:20px;padding:22px 18px;text-align:center;box-shadow:var(--shadow)}
+  .cd-card::before{content:"";position:absolute;top:-46px;right:-34px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(232,199,154,.2),transparent 70%)}
+  .cd-label{position:relative;font-family:var(--sans);font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#e8c79a;margin-bottom:14px}
+  .cd-units{position:relative;display:flex;gap:8px;justify-content:center}
+  .cd-u{min-width:60px;background:rgba(244,236,219,.08);border:1px solid rgba(244,236,219,.14);border-radius:13px;padding:10px 4px}
+  .cd-u b{display:block;font-family:var(--display);font-weight:500;font-size:1.95rem;line-height:1;color:#fdf7ea;font-variation-settings:"opsz" 64;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .cd-u span{font-family:var(--sans);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:#b9c9bb;margin-top:5px;display:block}
+  .cd-sub{position:relative;margin-top:15px;font-family:var(--serif);font-style:italic;font-size:.92rem;color:#cdbfa6;line-height:1.4}
+
+  /* ── appointment (top-level section: already full-width, no negative margin) ── */
+  .appt{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:linear-gradient(180deg,var(--paper-2),var(--paper));padding:30px 22px}
+  .appt-grid{margin-top:6px}
+  .appt-row{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--rule);align-items:baseline}
+  .appt-row:last-of-type{border-bottom:0}
+  .appt-row .k{font-family:var(--sans);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--clay-d);min-width:78px;flex:none}
+  .appt-row .v{font-size:.94rem;color:var(--ink);line-height:1.4}
+  .appt-row .v b{font-family:var(--display);font-weight:600;font-size:1rem}
+  .appt-map{display:inline-flex;align-items:center;gap:7px;margin-top:15px;font-family:var(--sans);font-size:.72rem;font-weight:600;color:var(--forest);background:var(--sage-l);border:1px solid #b9d2bf;border-radius:999px;padding:10px 16px;text-decoration:none}
+  .appt-map:active{transform:scale(.97)}
+
+  /* ── checklists ── */
+  .check-group{margin-top:20px}
+  .check-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+  .check-head h3{font-family:var(--display);font-weight:600;font-size:1.12rem;color:var(--ink);font-variation-settings:"opsz" 30}
+  .check-prog{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.06em;color:var(--forest-d);background:var(--sage-l);border:1px solid #b9d2bf;border-radius:999px;padding:4px 10px;white-space:nowrap}
+  .check-prog.done{background:var(--forest);color:#fff;border-color:var(--forest)}
+  .check-item{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid var(--rule);cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .check-item:last-child{border-bottom:0}
+  .check-input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+  .check-input:focus + .box{outline:2px solid var(--forest);outline-offset:2px}
+  .check-item .box{flex:none;width:22px;height:22px;border-radius:7px;border:1.8px solid var(--clay);margin-top:1px;display:grid;place-items:center;color:transparent;font-size:.8rem;font-weight:800;background:transparent;transition:all .18s}
+  .check-item .txt{font-size:.93rem;line-height:1.42;color:#43392e;transition:color .18s}
+  .check-item .txt b{color:var(--ink);font-weight:600}
+  .check-item.done .box{background:var(--forest);border-color:var(--forest);color:#fff}
+  .check-item.done .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(107,96,82,.4)}
+
+  /* ── rules card ── */
+  .rules-card{margin-top:18px;border:1px solid #e6c4a8;border-top:4px solid var(--clay);background:#f7ebd8;border-radius:var(--r);padding:18px}
+  .rules-card .rlabel{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-d);margin-bottom:6px}
+  .rules-card h3{font-family:var(--display);font-weight:600;font-size:1.12rem;color:var(--ink);margin-bottom:8px;font-variation-settings:"opsz" 30}
+  .rule-item{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(189,106,67,.25)}
+  .rule-item:last-child{border-bottom:0}
+  .rule-item .ri{color:var(--clay);font-weight:800;font-family:var(--sans);font-size:.8rem;line-height:1.3}
+  .rule-item p{font-size:.86rem;line-height:1.42;margin:0;color:#4a3a2e}
+  .rule-item p b{color:var(--clay-d)}
 </style>
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta property="og:title" content="The Calm Before — an exam-day calm field guide">
+<meta property="og:title" content="Sam's MCAT — the calm before">
 <meta property="og:description" content="An evidence-based pocket toolkit for steadying your mind before an exam: breathing, worry offloading, sleep, and the science behind them.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://astrocyte74.github.io/the-calm-before/">
+<meta property="og:url" content="https://astrocyte74.github.io/the-calm-before/sam.html">
 <meta property="og:image" content="https://astrocyte74.github.io/the-calm-before/assets/og-share.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -404,6 +452,10 @@ footer.foot a{color:#cdbfa6}
 <meta name="twitter:title" content="The Calm Before — an exam-day calm field guide">
 <meta name="twitter:description" content="An evidence-based pocket toolkit for steadying your mind before an exam.">
 <meta name="twitter:image" content="https://astrocyte74.github.io/the-calm-before/assets/og-share.png">
+<link rel="manifest" href="sam.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Calm Before">
 </head>
 <body>
 <div id="progress"></div>
@@ -426,9 +478,9 @@ footer.foot a{color:#cdbfa6}
       <div class="motes" aria-hidden="true"></div>
       <img src="assets/hero-dawn.webp" alt="Soft painterly misty hills at dawn">
       <div class="ph-inner">
-        <span class="eyebrow">A pocket field guide · performance &amp; calm</span>
+        <span class="eyebrow">Sam's MCAT · Saturday, June 27</span>
         <h1>The Calm<em>Before</em></h1>
-        <p class="sub">An evidence-based toolkit for steadying your mind in the hours before an exam.</p>
+        <p class="sub">Steady your mind before the MCAT. Breathing, checklists &amp; the science — all offline.</p>
         <div class="meta">
           <span>Performance Medicine</span><span class="dot"></span>
           <span>Compiled June 2026</span><span class="dot"></span>
@@ -436,6 +488,79 @@ footer.foot a{color:#cdbfa6}
         </div>
       </div>
       <div class="scrollcue" aria-hidden="true"><span class="line"></span>Scroll</div>
+    </div>
+  </section>
+
+  <!-- ═══════ COUNTDOWN ═══════ -->
+  <section class="countdown-sec reveal" id="countdown">
+    <div class="cd-card">
+      <div class="cd-label" id="cdLabel">Your MCAT begins in</div>
+      <div class="cd-units" id="cdUnits">
+        <div class="cd-u"><b id="cdD">—</b><span>days</span></div>
+        <div class="cd-u"><b id="cdH">—</b><span>hours</span></div>
+        <div class="cd-u"><b id="cdM">—</b><span>min</span></div>
+        <div class="cd-u"><b id="cdS">—</b><span>sec</span></div>
+      </div>
+      <div class="cd-sub" id="cdSub">Saturday, June 27 · 8:00 AM Mountain Time · be inside Pearson by 7:30</div>
+    </div>
+  </section>
+
+  <!-- ═══════ APPOINTMENT ═══════ -->
+  <section class="appt reveal">
+    <span class="eyebrow">Your appointment</span>
+    <h2 class="section">The <em>MCAT</em>. Saturday morning.</h2>
+    <div class="appt-grid">
+      <div class="appt-row"><span class="k">Exam</span><span class="v"><b>MCAT</b></span></div>
+      <div class="appt-row"><span class="k">Date</span><span class="v">Saturday, <b>June 27, 2026</b></span></div>
+      <div class="appt-row"><span class="k">Start</span><span class="v"><b>8:00 AM</b> Mountain Time (Calgary)</span></div>
+      <div class="appt-row"><span class="k">Arrive by</span><span class="v"><b>7:30 AM</b> at the latest — after the 8:00 start you can't test, no refund, and it counts as an attempt</span></div>
+      <div class="appt-row"><span class="k">Centre</span><span class="v">Pearson Professional Centres — Calgary East</span></div>
+      <div class="appt-row"><span class="k">Address</span><span class="v">433 Marlborough Way NE, Suite 440 — Marlborough Mall Professional Building, Calgary, AB T2A 7E7</span></div>
+    </div>
+    <a class="appt-map" href="https://www.google.com/maps/search/?api=1&query=Pearson+Professional+Centres+433+Marlborough+Way+NE+Calgary+AB" target="_blank" rel="noopener">▸ Get directions</a>
+  </section>
+
+  <!-- ═══════ CHECKLISTS ═══════ -->
+  <section class="checks reveal" id="checklists">
+    <span class="eyebrow">Pack &amp; prep</span>
+    <h2 class="section">Two lists, <em>one bag</em>.</h2>
+    <p class="lede">Tap to check off. Your phone remembers — even offline.</p>
+
+    <div class="check-group" data-group="night">
+      <div class="check-head"><h3>The night before — one bag</h3><span class="check-prog" data-prog>0 / 8</span></div>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt"><b>Passport</b> (accepted ID) — plus Alberta driver's licence as backup</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Appointment confirmation details</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Food &amp; drink for breaks (water, snacks, real food for the long break)</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Any normal medication</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Comfortable layers (shirt + light hoodie — no bulky jacket)</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Car keys + backup directions / parking plan</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Phone charged — set it to off/silent before check-in</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Two alarms set</span></label>
+    </div>
+
+    <div class="check-group" data-group="morning">
+      <div class="check-head"><h3>The morning of</h3><span class="check-prog" data-prog>0 / 7</span></div>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Eat a normal breakfast</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Use the bathroom before check-in</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Leave early — traffic, parking, finding the suite</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt"><b>Be inside Pearson by 7:30 AM</b></span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">ID in hand, name matching registration exactly</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">Phone off/silent before it goes in the sealed bag</span></label>
+      <label class="check-item"><input type="checkbox" class="check-input"><span class="box">✓</span><span class="txt">One slow breath — then let the prep do its work</span></label>
+    </div>
+  </section>
+
+  <!-- ═══════ RULES ═══════ -->
+  <section class="rules reveal" style="padding-top:0">
+    <div class="rules-card">
+      <div class="rlabel">Don't get caught out</div>
+      <h3>Six rules that actually matter</h3>
+      <div class="rule-item"><span class="ri">1</span><p><b>ID is the #1 risk.</b> First &amp; last name must match your registration exactly, on a government-issued, physical, unexpired ID in English. <b>Alberta health cards are not accepted</b> — bring your passport.</p></div>
+      <div class="rule-item"><span class="ri">2</span><p><b>Arrive by 7:30 AM.</b> After the 8:00 start you can't test, there's no refund, and it counts as one of your attempts.</p></div>
+      <div class="rule-item"><span class="ri">3</span><p><b>Your phone gets sealed at check-in.</b> No phone, notes, Anki, or looking things up during breaks — so use the breathing &amp; writing tools <em>now</em>, in the waiting area.</p></div>
+      <div class="rule-item"><span class="ri">4</span><p><b>You can't leave for food</b> and can't have it delivered. Pack everything you'll eat.</p></div>
+      <div class="rule-item"><span class="ri">5</span><p><b>Track your own break time</b> on the waiting-area clock — staff don't track it for you. Returning early just continues the exam.</p></div>
+      <div class="rule-item"><span class="ri">6</span><p><b>Score or void is final — on the computer.</b> Do nothing and it's scored. If something goes wrong, ask staff to file a case report <em>before</em> you leave.</p></div>
     </div>
   </section>
 
@@ -1065,6 +1190,64 @@ footer.foot a{color:#cdbfa6}
     else d.classList.remove('open');
   }));
 })();
+</script>
+
+<script>
+/* ═════════ MCAT countdown ═════════ */
+(function(){
+  var start = new Date('2026-06-27T08:00:00-06:00').getTime();    // 8:00 AM Mountain Time
+  var dayEnd = new Date('2026-06-27T17:00:00-06:00').getTime();   // ~exam-day end
+  var dEl=document.getElementById('cdD'),hEl=document.getElementById('cdH'),mEl=document.getElementById('cdM'),sEl=document.getElementById('cdS'),
+      units=document.getElementById('cdUnits'),label=document.getElementById('cdLabel'),sub=document.getElementById('cdSub');
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){
+    var now=Date.now();
+    if(now<start){
+      var diff=start-now;
+      dEl.textContent=Math.floor(diff/86400000);
+      hEl.textContent=pad(Math.floor(diff/3600000)%24);
+      mEl.textContent=pad(Math.floor(diff/60000)%60);
+      sEl.textContent=pad(Math.floor(diff/1000)%60);
+      label.textContent='Your MCAT begins in'; sub.textContent='Saturday, June 27 · 8:00 AM Mountain Time · be inside Pearson by 7:30';
+    } else if(now<dayEnd){
+      if(units) units.style.display='none';
+      label.textContent="You're in it now."; sub.textContent='Breathe between sections. You prepared for this — let it out.';
+    } else {
+      if(units) units.style.display='none';
+      label.textContent="It's done."; sub.textContent='Be proud of the work, Sam. Rest.';
+    }
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ═════════ checklists (persist offline) ═════════ */
+(function(){
+  var KEY='sam-mcat-checklists-v1';
+  var state; try{ state=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ state={}; }
+  document.querySelectorAll('.check-group').forEach(function(g){
+    var group=g.dataset.group;
+    var items=[].slice.call(g.querySelectorAll('.check-item'));
+    function key(i){return group+':'+i;}
+    function apply(i){ var on=!!state[key(i)]; items[i].classList.toggle('done',on); items[i].querySelector('.check-input').checked=on; }
+    function prog(){ var done=0; items.forEach(function(_,i){if(state[key(i)])done++;}); var p=g.querySelector('[data-prog]'); p.textContent=done+' / '+items.length; p.classList.toggle('done',done===items.length); }
+    items.forEach(function(item,i){
+      apply(i);
+      item.querySelector('.check-input').addEventListener('change',function(){
+        state[key(i)]=this.checked; item.classList.toggle('done',this.checked);
+        try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
+        prog();
+      });
+    });
+    prog();
+  });
+})();
+
+/* ═════════ service worker (offline) ═════════ */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
