@@ -359,7 +359,51 @@ footer.foot a{color:#cdbfa6}
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
 }
+
+  /* ── inline evidence links ── */
+  a.ref{color:var(--forest);text-decoration:underline;text-decoration-color:rgba(46,91,72,.4);text-decoration-thickness:1px;text-underline-offset:2px;transition:text-decoration-color .2s}
+  a.ref:hover{text-decoration-color:var(--forest)}
+
+  /* ── exam-day timeline ── */
+  .timeline{margin-top:26px;position:relative;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;border-radius:2px;background:linear-gradient(var(--dusk),var(--forest),var(--gold),var(--clay))}
+  .tnode{position:relative;padding-bottom:22px}
+  .tnode:last-child{padding-bottom:0}
+  .tnode::before{content:"";position:absolute;left:-31px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:2px solid var(--forest);box-shadow:0 0 0 4px var(--paper)}
+  .tnode:nth-child(1)::before{border-color:var(--dusk)}
+  .tnode:nth-child(2)::before{border-color:var(--forest)}
+  .tnode:nth-child(3)::before{border-color:var(--gold)}
+  .tnode:nth-child(4)::before{border-color:var(--clay)}
+  .tnode:nth-child(5)::before{background:var(--forest)}
+  .tlabel{font-family:var(--sans);font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-d);margin-bottom:4px}
+  .ttitle{font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin-bottom:5px;font-variation-settings:"opsz" 30}
+  .tmove{font-size:.93rem;line-height:1.5;color:#43392e;margin:0}
+  .tmove b{color:var(--forest-d);font-weight:600}
+  .tev{display:inline-block;margin-top:8px;font-family:var(--sans);font-size:.6rem;letter-spacing:.03em;color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:3px 9px}
+
+  /* ── references ── */
+  .refs{margin-top:8px}
+  .refs ol{list-style:none;counter-reset:r;padding:0}
+  .refs li{counter-increment:r;position:relative;padding:10px 0 10px 34px;border-bottom:1px solid var(--rule);font-size:.84rem;line-height:1.45;color:#43392e}
+  .refs li:last-child{border-bottom:0}
+  .refs li::before{content:counter(r);position:absolute;left:0;top:10px;width:22px;height:22px;border:1px solid var(--clay);border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:.6rem;font-weight:700;color:var(--clay)}
+  .refs li em{font-style:italic}
 </style>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="The Calm Before — an exam-day calm field guide">
+<meta property="og:description" content="An evidence-based pocket toolkit for steadying your mind before an exam: breathing, worry offloading, sleep, and the science behind them.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astrocyte74.github.io/the-calm-before/">
+<meta property="og:image" content="https://astrocyte74.github.io/the-calm-before/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Calm Before — a calm dawn scene with the title">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Calm Before — an exam-day calm field guide">
+<meta name="twitter:description" content="An evidence-based pocket toolkit for steadying your mind before an exam.">
+<meta name="twitter:image" content="https://astrocyte74.github.io/the-calm-before/assets/og-share.png">
 </head>
 <body>
 <div id="progress"></div>
@@ -468,6 +512,45 @@ footer.foot a{color:#cdbfa6}
     </div>
   </section>
 
+  <!-- ═══════ TIMELINE ═══════ -->
+  <section class="timeline-section reveal" id="timeline">
+    <span class="eyebrow">Your plan</span>
+    <h2 class="section">From tonight to the <em>exam hall</em>.</h2>
+    <p class="lede">A step-by-step calm protocol drawn from the evidence below. Each step has one job — keep working memory free and retrieval online.</p>
+    <div class="timeline">
+      <div class="tnode">
+        <div class="tlabel">The night before</div>
+        <div class="ttitle">Stop early — and sleep.</div>
+        <p class="tmove">Close the books by <b>~9 p.m.</b>; no new, difficult material after that. Protect a full night's sleep — the hippocampus re-optimizes for tomorrow's retrieval while you rest.</p>
+        <span class="tev">Sleep consolidation · Academic Medicine 2026</span>
+      </div>
+      <div class="tnode">
+        <div class="tlabel">Morning of</div>
+        <div class="ttitle">Move, eat, don't cram.</div>
+        <p class="tmove">Keep your routine. Light movement and a normal meal; resist reviewing new content — you're <b>preserving</b> consolidation now, not adding to it.</p>
+        <span class="tev">Wakeful-rest paradigm · Frontiers in Psychology 2022</span>
+      </div>
+      <div class="tnode">
+        <div class="tlabel">1 hour before</div>
+        <div class="ttitle">Rest beats revision.</div>
+        <p class="tmove">A <b>quiet walk</b>, calm music, or silence — not last-minute cramming, not your phone. Quiet rest in this window preserves more of what you learned than active review.</p>
+        <span class="tev">King &amp; Nicosia 2022 · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9642069/" target="_blank" rel="noopener">PMC9642069</a></span>
+      </div>
+      <div class="tnode">
+        <div class="tlabel">10 minutes before</div>
+        <div class="ttitle">Offload — or breathe.</div>
+        <p class="tmove"><b>High anxiety?</b> Ten minutes of writing out your worries (the pad above). <b>Just nervous?</b> A few rounds of box breathing. Both free up working memory right when you need it.</p>
+        <span class="tev">Ramirez &amp; Beilock, Science 2011 · <a class="ref" href="https://pubmed.ncbi.nlm.nih.gov/21233387/" target="_blank" rel="noopener">PMID&nbsp;21233387</a></span>
+      </div>
+      <div class="tnode">
+        <div class="tlabel">Walking in</div>
+        <div class="ttitle">One slow breath. You're ready.</div>
+        <p class="tmove">Let the prep go. A single long exhale as you sit down signals safety to your body — then let the knowledge you've consolidated do its work.</p>
+        <span class="tev">HPA-axis down-regulation · paced breathing</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════ TOOLKIT ═══════ -->
   <section class="toolkit reveal" id="tools">
     <span class="eyebrow">Try it now</span>
@@ -531,7 +614,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">Shiraz University of Medical Sciences · PMC7491091 · 2020</div>
+        <div class="citation">Shiraz University of Medical Sciences · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7491091/" target="_blank" rel="noopener">PMC7491091</a> · 2020</div>
         <p><b>Design.</b> Quasi-experimental; n=76 first-year nursing students (intervention 41, control 35). The intervention group received a structured pre-OSCE program: relaxation and soothing techniques, diaphragmatic-breathing training, and progressive muscle relaxation with light instrumental music. Controls received nothing.</p>
         <p><b>Outcome.</b> The intervention group showed significantly improved OSCE performance versus controls — feasibly delivered in the pre-examination waiting period.</p>
         <div class="badges"><span class="badge b-forest">Significant effect</span><span class="badge b-plum">Progressive muscle relaxation</span><span class="badge b-gold">Medical education</span></div>
@@ -547,7 +630,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">University of Jaén · PMC9957036 · Ortega-Donaire et al., 2023</div>
+        <div class="citation">University of Jaén · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9957036/" target="_blank" rel="noopener">PMC9957036</a> · Ortega-Donaire et al., 2023</div>
         <p><b>Design.</b> Three-arm factorial; n=119 nursing students. Arm 1: full yogic breathing (abdominal + thoracic + clavicular). Arm 2: social-support technique. Arm 3: no intervention. Outcomes: state anxiety and knowledge-test score.</p>
         <p><b>Key finding.</b> 98.2% of all participants showed moderate-to-high pre-exam anxiety. Participants with <em>moderate</em> — not high — anxiety scored significantly better (ρ=−0.222, p=0.015), confirming the inverted-U anxiety–performance relationship.</p>
         <div class="badges"><span class="badge b-forest">Inverted-U confirmed</span><span class="badge b-gold">Yogic breathing</span><span class="badge b-dusk">n=119</span></div>
@@ -563,7 +646,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">Aston Medical School · PMC8864822 · Hearn &amp; Stocker, 2022</div>
+        <div class="citation">Aston Medical School · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8864822/" target="_blank" rel="noopener">PMC8864822</a> · Hearn &amp; Stocker, 2022</div>
         <p><b>Design.</b> Controlled pre-post; n=67 preclinical medical students. Salivary cortisol measured during baseline group work and immediately before Year-2 exams. Five-Facet Mindfulness Questionnaire completed; academic performance extracted.</p>
         <p><b>Outcome.</b> Exam-induced cortisol showed a significant <em>negative</em> correlation with performance — direct biomarker evidence linking pre-exam arousal to degraded retrieval. Higher mindfulness (especially "non-judging" and "non-reacting" facets) correlated with lower cortisol and better performance.</p>
         <div class="badges"><span class="badge b-plum">Cortisol biomarker</span><span class="badge b-forest">Mindfulness facets</span><span class="badge b-gold">Objective performance data</span></div>
@@ -579,7 +662,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">PMC7451547 · European Journal of Integrative Medicine · 2020</div>
+        <div class="citation"><a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7451547/" target="_blank" rel="noopener">PMC7451547</a> · European Journal of Integrative Medicine · 2020</div>
         <p><b>Design.</b> Crossover RCT; n=37 medical students; three comparable anatomy exams at monthly intervals. Conditions: expressive writing, auricular vagal-nerve stimulation (indwelling needles), or no intervention — randomized sequence. STAI measured before/after intervention and immediately pre-exam.</p>
         <p><b>Outcome.</b> Both expressive writing and auricular stimulation reduced state anxiety more than no intervention. Sleep quality and the sympathetic marker salivary alpha-amylase tracked positively — underscoring the HPA-axis pathway as the operative target.</p>
         <div class="badges"><span class="badge b-plum">Crossover design</span><span class="badge b-forest">STAI validated</span><span class="badge b-dusk">sAA biomarker</span></div>
@@ -597,7 +680,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">BMC Psychology · PMC11884040 · 2025</div>
+        <div class="citation">BMC Psychology · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11884040/" target="_blank" rel="noopener">PMC11884040</a> · 2025</div>
         <p><b>Design.</b> RCT; experimental (n=29) vs. passive waiting control (n=32). Experimental group received 8 minutes/day of guided mindfulness for five consecutive days immediately before the exam period. Outcomes: Five-Facet Mindfulness Questionnaire, State Anxiety Inventory (days 1, 3, 5), and two paired exams.</p>
         <p><b>Outcome.</b> After five days the mindfulness group showed significant reductions in test anxiety and notable improvements in exam performance versus control. Observing and describing skills gained most — consistent with affect labeling as an anxiety down-regulation mechanism.</p>
         <div class="badges"><span class="badge b-forest">8 min/day</span><span class="badge b-plum">Significant on both outcomes</span><span class="badge b-gold">RCT design</span></div>
@@ -613,7 +696,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">PMC9858058 · NeuroImage: Clinical / Elsevier · 2023</div>
+        <div class="citation"><a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9858058/" target="_blank" rel="noopener">PMC9858058</a> · NeuroImage: Clinical / Elsevier · 2023</div>
         <p><b>Design.</b> Two brief mindfulness conditions (focused-attention vs. self-compassion) compared across multiple class tests in undergraduates. The self-compassion group reported significant wellbeing gains and outperformed focused-attention on more class tests.</p>
         <p><b>Implication.</b> The <em>type</em> of practice matters. Self-compassion framing — reducing self-judgment about performance — may be especially effective in high-stakes settings where fear of failure is the primary anxiety driver.</p>
         <div class="badges"><span class="badge b-forest">Self-compassion framing</span><span class="badge b-plum">Classroom validated</span><span class="badge b-dusk">Wellbeing + performance</span></div>
@@ -635,7 +718,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">University of Chicago · <em>Science</em> 331:211–213 · PMID 21233387 · Ramirez &amp; Beilock, 2011</div>
+        <div class="citation">University of Chicago · <em>Science</em> 331:211–213 · <a class="ref" href="https://pubmed.ncbi.nlm.nih.gov/21233387/" target="_blank" rel="noopener">PMID&nbsp;21233387</a> · Ramirez &amp; Beilock, 2011</div>
         <p><b>Design.</b> Two laboratory and two randomized field experiments. Intervention: 10 minutes of expressive writing immediately before a high-stakes exam (students wrote freely about their thoughts and feelings regarding the upcoming test). Control: wrote about an unrelated topic. Primary outcome: exam score; secondary: trait test anxiety as moderator.</p>
         <p><b>Results.</b> Expressive writing improved scores overall. Among habitually high-anxiety students it <em>eliminated</em> the negative correlation between anxiety and performance — anxious students performed comparably to low-anxiety peers. The 6% gain in high-anxiety field participants is nearly one letter grade. Unrelated-topic writing gave no benefit, implicating <em>specific worry-offloading</em> as the active mechanism.</p>
         <p><b>Mechanism.</b> Pre-exam worries occupy working-memory bandwidth. Externalizing them onto paper offloads ruminative content, freeing prefrontal resources for test-relevant processing.</p>
@@ -652,7 +735,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">PMC7308454 · <em>PLOS ONE</em> · 2020</div>
+        <div class="citation"><a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308454/" target="_blank" rel="noopener">PMC7308454</a> · <em>PLOS ONE</em> · 2020</div>
         <p><b>Design.</b> Students preparing for the GRE, MCAT, LSAT, or PCAT were randomly assigned to expressive writing about their upcoming exam or to a neutral-writing control. Measures: depressive symptoms, test anxiety, and actual exam score.</p>
         <p><b>Outcome.</b> The expressive-writing group achieved significantly higher scores and significantly lower pre-exam depressive symptoms. The benefit was most pronounced for MCAT and LSAT takers — the highest-stakes, most cognitively demanding exams — consistent with the working-memory-interference hypothesis.</p>
         <div class="badges"><span class="badge b-forest">MCAT/LSAT benefit</span><span class="badge b-plum">Lower depressive symptoms</span><span class="badge b-clay">Domain-specific effect</span></div>
@@ -668,7 +751,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">Cognitive Research: Principles and Implications · PMC8192598 · 2021</div>
+        <div class="citation">Cognitive Research: Principles and Implications · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8192598/" target="_blank" rel="noopener">PMC8192598</a> · 2021</div>
         <p>A 2021 within-subjects study tested expressive writing across four authentic psychology exams in a classroom and found <em>no significant reduction</em> in test anxiety or improvement in performance. Neither expressive writing nor an instructional reappraisal essay was effective in that population.</p>
         <p><b>Moderating factors likely include:</b> baseline anxiety severity, exam stakes, writing-prompt specificity, trait vs. state anxiety distribution, and academic domain. Expressive writing appears most potent when high-anxiety individuals face high-stakes exams where working-memory competition is maximal.</p>
         <div class="badges"><span class="badge b-clay">Negative RCT</span><span class="badge b-gold">Context-dependent</span></div>
@@ -686,7 +769,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation"><em>Academic Medicine</em>, Oxford Academic · DOI 10.1093/acmed/wvag043 · 2026</div>
+        <div class="citation"><em>Academic Medicine</em>, Oxford Academic · DOI <a class="ref" href="https://doi.org/10.1093/ac" target="_blank" rel="noopener">10.1093/ac</a>med/wvag043 · 2026</div>
         <p><b>Key finding.</b> A night of adequate sleep reactivates newly acquired information and transfers it from hippocampal temporary storage to neocortical long-term memory. Crucially, it also <em>re-optimizes the hippocampus</em> for next-day encoding and retrieval — so sleep the night before is active preparation of the retrieval apparatus, not passive recovery.</p>
         <p><b>Paradox.</b> Despite this, medical students consistently increase sleep deprivation during exam periods — trading consolidation for extra review hours. It is typically a negative trade: hours gained don't offset retention, attention, and emotional regulation lost.</p>
         <div class="badges"><span class="badge b-dusk">Hippocampal re-optimization</span><span class="badge b-forest">Medical-student focus</span><span class="badge b-plum">2026 review</span></div>
@@ -702,7 +785,7 @@ footer.foot a{color:#cdbfa6}
         <span class="chev" aria-hidden="true">+</span>
       </summary>
       <div class="body">
-        <div class="citation">Frontiers in Psychology · PMC9642069 · King &amp; Nicosia, 2022</div>
+        <div class="citation">Frontiers in Psychology · <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9642069/" target="_blank" rel="noopener">PMC9642069</a> · King &amp; Nicosia, 2022</div>
         <p><b>Design.</b> Participants encoded stimuli, then underwent either ~10 minutes of quiet wakeful rest (alone, no distracting materials) or a passive distractor task before a delayed retrieval test.</p>
         <p><b>Outcome.</b> Performance after quiet wakeful rest was consistently better than after distractor tasks. The proposed mechanism: wakeful rest allows offline memory replay analogous to sleep-stage consolidation, reducing trace interference. Active post-encoding tasks — including more studying — interrupt it.</p>
         <p><b>Practical.</b> In the 30–60 minutes before an exam, quiet rest — a walk, calm music, silence — may preserve more of what you learned than last-minute active review.</p>
@@ -765,7 +848,7 @@ footer.foot a{color:#cdbfa6}
       </div>
       <div class="trial">
         <span class="tstatus comp">Completed · 2023</span>
-        <h4>Relaxing breathing before OSCE stations — NCT06466993</h4>
+        <h4>Relaxing breathing before OSCE stations — <a class="ref" href="https://clinicaltrials.gov/study/NCT06466993" target="_blank" rel="noopener">NCT06466993</a></h4>
         <p>A prospective, randomized, double-blind study (est. n=400) testing standardized relaxing breathing during OSCE station-rotation time vs. free-time controls. Evaluators blinded to randomization. Primary outcome: performance scores — a direct test of brief in-sequence breathing.</p>
       </div>
       <div class="trial">
@@ -788,6 +871,29 @@ footer.foot a{color:#cdbfa6}
       <div class="titem"><div class="n"></div><p>Quiet wakeful rest in the final 30–60 minutes — a walk, calm music, sitting silently — preserves more of what you learned than last-minute cramming, because it allows offline consolidation rather than interference.</p></div>
       <div class="titem"><div class="n"></div><p>Not every intervention works in every context: expressive writing <b>failed to replicate</b> in low-stakes classrooms. Match intensity to severity — reserve writing for high-anxiety, high-stakes moments; use breathing or quiet rest as the low-barrier default.</p></div>
       <div class="titem"><div class="n"></div><p>For educators, <b>structure matters</b>: a calm, quiet pre-exam environment with optional guided breathing may support performance more than dense last-minute information distribution.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════ REFERENCES ═══════ -->
+  <section class="refs-section reveal" style="padding-top:0">
+    <span class="eyebrow">Sources</span>
+    <h2 class="section">References.</h2>
+    <div class="refs">
+      <ol>
+        <li>Ramirez G, Beilock SL. Writing about testing worries boosts exam performance. <em>Science</em>. 2011;331(6014):211–213. <a class="ref" href="https://pubmed.ncbi.nlm.nih.gov/21233387/" target="_blank" rel="noopener">PMID&nbsp;21233387</a>.</li>
+        <li>Ortega-Donaire JJ, et al. Guided breathing vs. social support before a final exam (factorial study, n=119). University of Jaén. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9957036/" target="_blank" rel="noopener">PMC9957036</a>. 2023.</li>
+        <li>Hearn JH, Stocker F. Mindfulness, salivary cortisol and exam performance in preclinical medical students. Aston Medical School. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8864822/" target="_blank" rel="noopener">PMC8864822</a>. 2022.</li>
+        <li>Pre-OSCE anxiety-coping program (quasi-experimental, n=76). Shiraz University of Medical Sciences. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7491091/" target="_blank" rel="noopener">PMC7491091</a>. 2020.</li>
+        <li>Auricular vagal stimulation vs. expressive writing before anatomy exams (crossover RCT). <em>European Journal of Integrative Medicine</em>. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7451547/" target="_blank" rel="noopener">PMC7451547</a>. 2020.</li>
+        <li>Five-day brief mindfulness immediately before exams (RCT). <em>BMC Psychology</em>. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11884040/" target="_blank" rel="noopener">PMC11884040</a>. 2025.</li>
+        <li>Self-compassion vs. focused-attention mindfulness on classroom performance. <em>NeuroImage: Clinical</em>. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9858058/" target="_blank" rel="noopener">PMC9858058</a>. 2023.</li>
+        <li>Expressive writing before graduate entrance exams (MCAT/LSAT). <em>PLOS ONE</em>. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308454/" target="_blank" rel="noopener">PMC7308454</a>. 2020.</li>
+        <li>Expressive-writing null replication across psychology exams. <em>Cognitive Research: Principles and Implications</em>. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8192598/" target="_blank" rel="noopener">PMC8192598</a>. 2021.</li>
+        <li>Sleep consolidation, hippocampal transfer and next-day exam readiness (systematic review). <em>Academic Medicine</em>. doi:<a class="ref" href="https://doi.org/10.1093/ac" target="_blank" rel="noopener">10.1093/ac</a>med/wvag043. 2026.</li>
+        <li>King L, Nicosia J. Wakeful rest outperforms distractor tasks for delayed recall. <em>Frontiers in Psychology</em>. <a class="ref" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9642069/" target="_blank" rel="noopener">PMC9642069</a>. 2022.</li>
+        <li>Relaxing breathing before OSCE stations (randomized, double-blind). ClinicalTrials.gov <a class="ref" href="https://clinicaltrials.gov/study/NCT06466993" target="_blank" rel="noopener">NCT06466993</a>. 2023.</li>
+        <li>Mindfulness for academic stress, burnout and resilience (25-RCT meta-analysis). <em>Frontiers in Psychology</em>. 2025.</li>
+      </ol>
     </div>
   </section>
 
