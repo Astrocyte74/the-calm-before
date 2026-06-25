@@ -2,19 +2,26 @@
 """Generate a cohesive painterly image set via OpenAI gpt-image-2.
 
 Sources the key from /Users/markdarby/projects/glm/.env (OPEN_AI_API_KEY).
-Runs all generations concurrently. Defensive about quality param and response shape.
+Generates full-res PNG masters into assets/src/, then builds optimized WebP
+into assets/ (requires `cwebp` on PATH). Runs all generations concurrently.
+Defensive about quality param and response shape.
 """
 import base64
 import json
 import os
+import shutil
+import subprocess
 import sys
 import urllib.request
 import concurrent.futures
 from pathlib import Path
 
 ENV = Path("/Users/markdarby/projects/glm/.env")
-OUT = Path(__file__).parent / "assets"
-OUT.mkdir(exist_ok=True)
+ROOT = Path(__file__).parent
+MASTERS = ROOT / "assets" / "src"   # full-res PNG masters (editable source art)
+SERVED = ROOT / "assets"            # optimized WebP served by the site
+MASTERS.mkdir(parents=True, exist_ok=True)
+SERVED.mkdir(exist_ok=True)
 
 def load_key():
     key = None
@@ -69,7 +76,7 @@ JOBS = [
 ]
 
 def gen(name, prompt, size, quality):
-    out = OUT / name
+    out = MASTERS / name
     payloads = []
     base = {"model": "gpt-image-2", "prompt": f"{prompt}. {LANG}",
             "size": size, "n": 1}
@@ -105,9 +112,23 @@ def gen(name, prompt, size, quality):
     return f"FAIL {name}: {last_err}"
 
 if __name__ == "__main__":
-    print(f"Generating {len(JOBS)} images with gpt-image-2 -> {OUT}")
+    print(f"Generating {len(JOBS)} images with gpt-image-2 -> {MASTERS}")
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(JOBS)) as ex:
         futures = {ex.submit(gen, *j): j[0] for j in JOBS}
         for fut in concurrent.futures.as_completed(futures):
             print(fut.result(), flush=True)
+
+    # Build optimized WebP (served by the site) from the PNG masters.
+    if not shutil.which("cwebp"):
+        print("cwebp not found on PATH — skipping WebP build. Masters are in", MASTERS)
+    else:
+        print("Building optimized WebP -> %s" % SERVED)
+        for name, *_ in JOBS:
+            png = MASTERS / name
+            webp = SERVED / name.replace(".png", ".webp")
+            subprocess.run(["cwebp", "-q", "82", "-resize", "900", "0",
+                            str(png), "-o", str(webp)],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                           check=False)
+            print("  webp:", webp.name)
     print("Done.")

@@ -32,7 +32,12 @@ individualized medical advice.
 ## Files
 
 ```
-index.html      # the whole experience (inline CSS + JS)
-assets/         # 4 WebP illustrations (~300 KB total)
-gen_images.py   # regenerates the source illustrations via gpt-image-2
+index.html          # the whole experience (inline CSS + JS)
+assets/*.webp       # 4 optimized illustrations served to the browser (~300 KB total)
+assets/src/*.png    # full-res PNG masters (editable source art)
+gen_images.py       # regenerate masters via gpt-image-2, then build the WebP
 ```
+
+> **This folder (`~/projects/the-calm-before/`) is the canonical home for the
+> project.** Edit here, then `git add -A && git commit -m "…" && git push` —
+> GitHub Pages auto-redeploys.
