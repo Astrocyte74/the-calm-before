@@ -32,11 +32,20 @@ individualized medical advice.
 ## Files
 
 ```
-index.html          # the whole experience (inline CSS + JS)
-assets/*.webp       # 4 optimized illustrations served to the browser (~300 KB total)
-assets/src/*.png    # full-res PNG masters (editable source art)
-gen_images.py       # regenerate masters via gpt-image-2, then build the WebP
+index.html                # the calm-before guide (inline CSS + JS)
+sam.html                  # Sam's personalized, offline-installable MCAT page (PWA)
+exam-room.html            # "In the Exam Room" — neuroscience of exam performance
+sw.js / sam.webmanifest   # service worker + manifest (offline PWA shell)
+assets/*.webp             # optimized illustrations served to the browser
+assets/src/*.png          # full-res PNG masters (editable source art)
+gen_images.py             # regenerate the base masters via gpt-image-2, then build WebP
+gen_exam_room_images.py  # regenerate the exam-room art set (same gpt-image-2 pipeline)
 ```
+
+The three pages share one design system (tokens, type, components). `exam-room.html`
+extends it with player cards, a "ventilation switch" toolkit (physiological-sigh +
+box-breathing orbs and a cognitive-reappraisal tool), and the closing courtroom band.
+
 
 > **This folder (`~/projects/the-calm-before/`) is the canonical home for the
 > project.** Edit here, then `git add -A && git commit -m "…" && git push` —

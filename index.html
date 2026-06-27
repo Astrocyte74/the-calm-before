@@ -121,6 +121,13 @@ em.accent{font-style:italic;color:var(--clay-d)}
 .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 -8px;color:var(--rule)}
 .divider svg{flex:none}
 
+/* ═══════════════════ SERIES STRIP (chapter nav) ═══════════════════ */
+.series{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;padding:16px 22px;border-bottom:1px solid var(--rule);background:linear-gradient(180deg,var(--paper),var(--paper-2));font-family:var(--sans);font-size:.64rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase}
+.series .schap{color:var(--muted);text-decoration:none;padding-bottom:3px;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;cursor:pointer}
+.series .schap:hover{color:var(--ink)}
+.series .schap.cur{color:var(--forest-d);border-bottom-color:var(--forest);cursor:default}
+.series .ssep{color:var(--rule);font-weight:400}
+
 /* ═══════════════════ HERO ═══════════════════ */
 .hero{position:relative;padding:0;overflow:hidden}
 .hero .ph{position:relative;height:min(78vh,560px);overflow:hidden}
@@ -438,6 +445,13 @@ footer.foot a{color:#cdbfa6}
       <div class="scrollcue" aria-hidden="true"><span class="line"></span>Scroll</div>
     </div>
   </section>
+
+  <!-- ═══════ SERIES NAV ═══════ -->
+  <nav class="series" aria-label="Chapters">
+    <a class="schap cur" aria-current="page">The Calm Before</a>
+    <span class="ssep" aria-hidden="true">·</span>
+    <a class="schap" href="exam-room.html">In the Exam Room</a>
+  </nav>
 
   <!-- ═══════ PARADIGM ═══════ -->
   <section class="paradigm reveal" id="paradigm">

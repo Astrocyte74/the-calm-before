@@ -1,8 +1,8 @@
 // Service Worker for "The Calm Before" / Sam's MCAT page.
 // Network-first for documents (fresh content when online, cached when offline);
 // stale-while-revalidate for assets + Google Fonts so the page works fully offline.
-const CACHE = 'calm-before-v1';
-const CORE = ['.', './sam.html', './index.html', './favicon.svg'];
+const CACHE = 'calm-before-v2';
+const CORE = ['.', './index.html', './sam.html', './exam-room.html', './favicon.svg'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(

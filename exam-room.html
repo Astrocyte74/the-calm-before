@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#221d17">
+<title>In the Exam Room — the neuroscience of MCAT performance</title>
+<meta name="description" content="The neuroscience of exam performance: how the prefrontal cortex, hippocampus and amygdala decide every answer — and how to run your own brain chemistry with the vagus-nerve ventilation switch when the pressure hits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Schibsted+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════ TOKENS ═══════════════════ */
+:root{
+  --paper:#f4ecdb;        /* warm cream page */
+  --paper-2:#ece2cc;      /* deeper panel */
+  --paper-3:#e3d7ba;      /* deepest warm */
+  --ink:#211c16;          /* warm near-black */
+  --ink-2:#4a423866;      /* soft ink */
+  --muted:#6b6052;        /* secondary text */
+  --rule:#cabb9e;         /* hairline */
+  --forest:#2e5b48;       /* primary accent — pine */
+  --forest-d:#204236;
+  --sage:#8fb0a0;
+  --sage-l:#d7e3da;
+  --clay:#bd6a43;         /* warm terracotta */
+  --clay-d:#9c512c;
+  --gold:#b0813f;
+  --dusk:#3f5a78;
+  --plum:#5c3a6e;
+  --rose:#b6546a;
+  --maxw:460px;
+  --serif:"Newsreader", Georgia, serif;
+  --display:"Fraunces", Georgia, serif;
+  --sans:"Schibsted+Grotesk", system-ui, sans-serif;
+  --r:18px;
+  --r-sm:12px;
+  --shadow:0 1px 0 rgba(33,28,22,.04), 0 18px 40px -22px rgba(33,28,22,.35);
+}
+
+/* ═══════════════════ RESET ═══════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(120% 80% at 15% -5%, #efe4cb 0%, transparent 55%),
+    radial-gradient(120% 70% at 110% 10%, #e7dcc0 0%, transparent 50%),
+    radial-gradient(100% 60% at 50% 120%, #e4d8b8 0%, transparent 55%),
+    #e9dfc6;
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-wrap:break-word;
+}
+/* film grain */
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.05;mix-blend-mode:multiply;
+}
+
+/* ═══════════════════ PROGRESS + STICKY HEAD ═══════════════════ */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--clay),var(--gold),var(--forest));z-index:200;transition:width .12s linear}
+header.bar{
+  position:sticky;top:0;z-index:150;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:11px 18px;
+  background:linear-gradient(var(--paper),var(--paper) 60%,rgba(244,236,219,.78));
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border-bottom:1px solid transparent;transition:border-color .3s,padding .3s;
+}
+header.bar.on{border-bottom:1px solid var(--rule)}
+.brand{display:flex;align-items:center;gap:9px;min-width:0}
+.brand .mark{flex:none;color:var(--forest)}
+.brand .mark svg{display:block}
+.brand .name{font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-.01em;font-variation-settings:"opsz" 24,"SOFT" 40;line-height:1;white-space:nowrap}
+.brand .name em{font-style:italic;color:var(--clay);font-weight:500}
+.tobreathe{
+  font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.04em;
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--forest);background:var(--sage-l);
+  border:1px solid #b9d2bf;border-radius:999px;padding:8px 13px 8px 11px;
+  text-decoration:none;white-space:nowrap;transition:transform .15s, background .2s;
+}
+.tobreathe:hover{background:#cce0d2}
+.tobreathe:active{transform:scale(.96)}
+.tobreathe .puff{width:9px;height:9px;border-radius:50%;background:var(--forest);box-shadow:0 0 0 0 rgba(46,91,72,.5);animation:pulse 3.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(46,91,72,.45);transform:scale(.85)}50%{box-shadow:0 0 0 7px rgba(46,91,72,0);transform:scale(1.15)}}
+
+/* ═══════════════════ SHELL ═══════════════════ */
+main{max-width:var(--maxw);margin:0 auto;background:var(--paper);min-height:100vh;box-shadow:0 0 60px -20px rgba(33,28,22,.35)}
+section{padding:46px 22px;scroll-margin-top:64px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ═══════════════════ TYPE HELPERS ═══════════════════ */
+.eyebrow{
+  font-family:var(--sans);font-size:.7rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--clay-d);
+  display:inline-flex;align-items:center;gap:9px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--clay);display:inline-block}
+h2.section{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(1.7rem,7.5vw,2.25rem);line-height:1.04;letter-spacing:-.02em;
+  color:var(--ink);margin:14px 0 12px;
+  font-variation-settings:"opsz" 96,"SOFT" 30,"WONK" 0;
+}
+h2.section em{font-style:italic;color:var(--forest);font-weight:500}
+.lede{font-size:1.12rem;line-height:1.5;color:var(--muted);font-style:italic;max-width:34ch}
+p{margin:0 0 .85em}
+strong{font-weight:600;color:var(--ink)}
+em.accent{font-style:italic;color:var(--clay-d)}
+
+/* section divider motif */
+.divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 -8px;color:var(--rule)}
+.divider svg{flex:none}
+
+/* ═══════════════════ SERIES STRIP (chapter nav) ═══════════════════ */
+.series{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;padding:16px 22px;border-bottom:1px solid var(--rule);background:linear-gradient(180deg,var(--paper),var(--paper-2));font-family:var(--sans);font-size:.64rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase}
+.series .schap{color:var(--muted);text-decoration:none;padding-bottom:3px;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;cursor:pointer}
+.series .schap:hover{color:var(--ink)}
+.series .schap.cur{color:var(--forest-d);border-bottom-color:var(--forest);cursor:default}
+.series .ssep{color:var(--rule);font-weight:400}
+
+/* ═══════════════════ HERO ═══════════════════ */
+.hero{position:relative;padding:0;overflow:hidden}
+.hero .ph{position:relative;height:min(78vh,560px);overflow:hidden}
+.hero .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:slowzoom 26s ease-in-out infinite alternate}
+@keyframes slowzoom{from{transform:scale(1.04)}to{transform:scale(1.16)}}
+.hero .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(33,28,22,.30) 0%,rgba(33,28,22,.05) 26%,rgba(33,28,22,.12) 52%,rgba(33,28,22,.82) 100%)}
+.hero .ph-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 24px 30px;color:#f7f1e3;z-index:2}
+.hero .eyebrow{color:#f3d9b0}
+.hero .eyebrow::before{background:#e0b878}
+.hero h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(3rem,16vw,4.6rem);line-height:.92;letter-spacing:-.035em;
+  margin:10px 0 14px;color:#fdf7ea;
+  font-variation-settings:"opsz" 144,"SOFT" 70,"WONK" 1;text-shadow:0 2px 30px rgba(20,15,8,.35);
+}
+.hero h1 em{font-style:italic;font-weight:300;color:#f0c993;display:block}
+.hero .sub{font-family:var(--serif);font-style:italic;font-size:1.12rem;line-height:1.45;max-width:24ch;color:#f3ead2;text-shadow:0 1px 12px rgba(20,15,8,.4)}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-family:var(--sans);font-size:.66rem;letter-spacing:.06em;color:#e9d8b4;text-transform:uppercase}
+.hero .meta .dot{width:3px;height:3px;border-radius:50%;background:#c79a55}
+.scrollcue{position:absolute;left:0;right:0;bottom:10px;display:flex;flex-direction:column;align-items:center;gap:6px;color:#f0dfb4;z-index:3;font-family:var(--sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.scrollcue .line{width:1px;height:30px;background:linear-gradient(#f0dfb4,transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+/* hero floating motes */
+.motes{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.motes i{position:absolute;bottom:-20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,244,214,.9),rgba(255,244,214,0));filter:blur(.4px);animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}8%{opacity:.7}90%{opacity:.5}100%{transform:translateY(-560px) translateX(18px);opacity:0}}
+
+/* ═══════════════════ PARADIGM ═══════════════════ */
+.paradigm{background:linear-gradient(180deg,var(--paper),var(--paper-2) 70%)}
+.para-pair{margin-top:22px;display:grid;gap:12px}
+.pcard{border-radius:var(--r);padding:20px 20px 18px;border:1px solid var(--rule);position:relative;overflow:hidden}
+.pcard.old{background:#efe6cf}
+.pcard.old::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(189,106,67,.05) 0 14px,transparent 14px 28px);pointer-events:none}
+.pcard.new{background:#dce8de;border-color:#bcd2c0}
+.pcard.new::before{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(46,91,72,.16),transparent 70%)}
+.pcard .tag{font-family:var(--sans);font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;position:relative}
+.pcard.old .tag{color:var(--clay-d)}
+.pcard.new .tag{color:var(--forest-d)}
+.pcard .tag .glyph{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:800}
+.pcard.old .tag .glyph{background:var(--clay);color:#fff}
+.pcard.new .tag .glyph{background:var(--forest);color:#fff}
+.pcard ul{list-style:none;margin-top:12px;position:relative}
+.pcard li{position:relative;padding:7px 0 7px 26px;font-size:.96rem;line-height:1.42;border-bottom:1px dashed rgba(33,28,22,.1)}
+.pcard li:last-child{border-bottom:0}
+.pcard li::before{position:absolute;left:0;top:7px;font-family:var(--sans);font-weight:800;font-size:.85rem}
+.pcard.old li::before{content:"✕";color:var(--clay-d)}
+.pcard.new li::before{content:"✓";color:var(--forest)}
+
+/* ═══════════════════ MECHANISM ═══════════════════ */
+.mech-feature{margin:22px -22px 0;height:200px;position:relative;overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.mech-feature img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.mech-feature .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 22px;background:linear-gradient(transparent,rgba(33,28,22,.7));color:#f3ead2;font-family:var(--display);font-style:italic;font-size:1.05rem;font-variation-settings:"opsz" 40}
+
+/* ═══════════════════ TOOLKIT ═══════════════════ */
+.toolkit{background:linear-gradient(180deg,var(--forest-d),#1a352b);color:#f0e7d2;position:relative;overflow:hidden}
+.toolkit::before{content:"";position:absolute;top:-120px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(143,176,160,.22),transparent 70%);pointer-events:none}
+.toolkit .eyebrow{color:#e6c891}
+.toolkit .eyebrow::before{background:#c79a55}
+.toolkit h2.section{color:#f7f1e3}
+.toolkit h2.section em{color:#e8c79a}
+.toolkit .lede{color:#cdbfa6}
+.tool{margin-top:24px;background:rgba(244,236,219,.06);border:1px solid rgba(244,236,219,.16);border-radius:22px;padding:22px;position:relative;backdrop-filter:blur(2px)}
+.tool h3{font-family:var(--display);font-weight:500;font-size:1.45rem;letter-spacing:-.02em;color:#fdf7ea;font-variation-settings:"opsz" 60,"SOFT" 50;margin-bottom:4px}
+.tool h3 em{font-style:italic;color:#e8c79a}
+.tool .tsub{font-size:.88rem;color:#b9c9bb;margin-bottom:18px;font-style:italic}
+.tool .sci{margin-top:16px;padding-top:14px;border-top:1px dashed rgba(244,236,219,.18);font-size:.8rem;line-height:1.45;color:#b6c4b8}
+.tool .sci b{color:#e6c891;font-weight:600}
+
+/* breathing orb */
+.breath-stage{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0 4px}
+.breath-orb-wrap{position:relative;width:190px;height:190px;display:grid;place-items:center}
+.breath-orb-wrap .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(232,199,154,.25)}
+.breath-orb-wrap .ring.r2{inset:18px;border-color:rgba(232,199,154,.16)}
+.orb{
+  width:104px;height:104px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#f3dcae,#caa15f 55%,#9c7230 100%);
+  box-shadow:0 0 40px rgba(232,199,154,.4),inset 0 0 30px rgba(255,255,255,.18);
+  transform:scale(.5);transition:transform .15s linear, box-shadow .15s linear;
+}
+.breath-phase{font-family:var(--display);font-weight:500;font-size:1.3rem;letter-spacing:-.01em;color:#fdf7ea;font-variation-settings:"opsz" 40;min-height:1.3em;text-align:center}
+.breath-count{font-family:var(--sans);font-weight:600;font-size:.78rem;letter-spacing:.12em;color:#c79a55;min-height:1em}
+.breath-ctrl{display:flex;gap:10px;justify-content:center;margin-top:16px}
+.btn{font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.02em;border-radius:999px;padding:11px 20px;border:1px solid transparent;cursor:pointer;transition:transform .15s,background .2s,color .2s}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:#e8c79a;color:#2a2014;border-color:#e8c79a}
+.btn.primary:hover{background:#f0d6b0}
+.btn.ghost{background:transparent;color:#f0e7d2;border-color:rgba(244,236,219,.3)}
+.btn.ghost:hover{border-color:rgba(244,236,219,.6)}
+.breath-meta{text-align:center;margin-top:12px;font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#9aaba0}
+
+/* release / fade (reused by the reappraisal tool) */
+.release-msg{display:none;margin-top:14px;padding:16px;border-radius:14px;background:rgba(232,199,154,.12);border:1px dashed rgba(232,199,154,.4);font-family:var(--display);font-style:italic;font-size:1.05rem;color:#f3e6c9;text-align:center;font-variation-settings:"opsz" 36}
+.release-msg.show{display:block;animation:fadein .8s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════ WRITE BANNER ═══════════════════ */
+.write-banner{position:relative;margin:34px -22px 4px;height:168px;overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.write-banner img{width:100%;height:100%;object-fit:cover;object-position:center}
+.write-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(33,28,22,.62) 0%,rgba(33,28,22,.25) 45%,transparent 75%)}
+.write-banner .wb-cap{position:absolute;left:0;bottom:0;padding:18px 22px 16px;max-width:80%;color:#f5ecd8;font-family:var(--display);font-style:italic;font-weight:400;font-size:1.08rem;line-height:1.28;letter-spacing:-.01em;font-variation-settings:"opsz" 40,"SOFT" 40;z-index:2}
+.write-banner .wb-cap em{font-style:italic;color:#f0c993}
+
+/* ═══════════════════ SLEEP / CLOSING BAND ═══════════════════ */
+.sleep{padding:0;color:#f3ead2;background:#243742}
+.sleep .ph{position:relative;height:300px;overflow:hidden}
+.sleep .ph img{width:100%;height:100%;object-fit:cover}
+.sleep .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(36,55,66,.35),rgba(30,42,50,.55) 60%,#1c2b33)}
+.sleep .ph .pull{position:absolute;left:0;right:0;bottom:26px;padding:0 24px;color:#f3ead2;z-index:2}
+.sleep .pull q{font-family:var(--display);font-weight:300;font-size:clamp(1.4rem,6.5vw,1.9rem);line-height:1.15;letter-spacing:-.02em;font-style:italic;font-variation-settings:"opsz" 72,"SOFT" 60;display:block}
+.sleep .pull q::before,.sleep .pull q::after{color:#8fb0a0}
+.sleep-body{padding:34px 22px 40px;background:#243742}
+.sleep-body .eyebrow{color:#9fb3bd}
+.sleep-body .eyebrow::before{background:#5f7d8a}
+.sleep-body h2.section{color:#f3ead2}
+.sleep-body h2.section em{color:#9fb3bd}
+.sleep-body p{color:#cdd9de;font-size:.98rem}
+.sleep-body p b{color:#f3ead2}
+.sleep-paradox{margin-top:18px;border-radius:14px;background:rgba(143,176,160,.12);border:1px solid rgba(143,176,160,.3);padding:16px;font-size:.92rem;color:#d7e0e3}
+.sleep-paradox b{color:#9fb3bd}
+
+/* ═══════════════════ FOOTER ═══════════════════ */
+footer.foot{background:#1c1813;color:#cdbfa6;padding:38px 22px calc(28px + env(safe-area-inset-bottom));text-align:center}
+footer.foot .flourish{color:#7a6a4a;margin-bottom:16px}
+footer.foot .disclaimer{font-size:.74rem;font-style:italic;line-height:1.5;color:#9c8e72;max-width:36ch;margin:0 auto 14px}
+footer.foot .meta{font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#7a6a4a}
+footer.foot a{color:#cdbfa6}
+
+@media (max-width:380px){
+  body{font-size:16px}
+  section{padding:40px 18px}
+  .hero h1{font-size:2.7rem}
+  .mech-feature,.write-banner{margin-left:-18px;margin-right:-18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+
+  /* ── inline links ── */
+  a.ref{color:var(--forest);text-decoration:underline;text-decoration-color:rgba(46,91,72,.4);text-decoration-thickness:1px;text-underline-offset:2px;transition:text-decoration-color .2s}
+  a.ref:hover{text-decoration-color:var(--forest)}
+
+  /* ═══════════════════ EXAM-ROOM: PLAYER CARDS ═══════════════════ */
+  .players{padding-top:0}
+  .player{margin-top:14px;border:1px solid var(--rule);border-radius:var(--r);background:#fbf6e9;padding:20px;position:relative;overflow:hidden}
+  .player::before{content:"";position:absolute;top:-34px;right:-34px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft),transparent 70%);pointer-events:none}
+  .p-pfc{--accent:var(--forest);--accent-soft:rgba(46,91,72,.13)}
+  .p-hippo{--accent:var(--dusk);--accent-soft:rgba(63,90,120,.13)}
+  .p-amyg{--accent:var(--clay);--accent-soft:rgba(189,106,67,.15)}
+  .prole{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;position:relative}
+  .prole .metaphor{font-family:var(--display);font-style:italic;font-weight:500;font-size:1.6rem;color:var(--accent);line-height:1;font-variation-settings:"opsz" 64,"SOFT" 55}
+  .prole .region{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:4px 9px}
+  .ptag{font-size:.95rem;color:var(--muted);font-style:italic;margin:7px 0 2px;position:relative}
+  .does{list-style:none;margin-top:8px;position:relative}
+  .does li{position:relative;padding:7px 0 7px 22px;font-size:.93rem;line-height:1.45;border-bottom:1px dashed rgba(33,28,22,.1)}
+  .does li:last-child{border-bottom:0}
+  .does li::before{content:"";position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .does li b{color:var(--ink);font-weight:600}
+  .threat{position:relative;margin-top:14px;border-left:3px solid var(--clay);background:#f6e9d6;border-radius:0 12px 12px 0;padding:11px 14px;font-size:.88rem;line-height:1.5;color:#5a4233}
+  .threat b{color:var(--clay-d);font-weight:600}
+  .pneuro{position:relative;margin-top:12px;font-family:var(--sans);font-size:.66rem;letter-spacing:.01em;color:var(--muted);line-height:1.5}
+
+  /* ═══════════════════ EXAM-ROOM: DANGER BAND ═══════════════════ */
+  .danger{margin-top:16px;border:1px solid #e6c4a8;border-top:4px solid var(--clay);background:#f7ebd8;border-radius:var(--r);padding:18px}
+  .dlabel{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-d);margin-bottom:8px}
+  .ditem{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:7px 0;border-bottom:1px dashed rgba(189,106,67,.25)}
+  .ditem:last-of-type{border-bottom:0}
+  .ditem .di{color:var(--clay);font-weight:800;font-family:var(--sans);font-size:.8rem;line-height:1.3}
+  .ditem p{font-size:.88rem;line-height:1.45;margin:0;color:#4a3a2e}
+  .ditem p b{color:var(--clay-d)}
+  .dfoot{margin-top:13px;font-size:.92rem;line-height:1.5;color:#5a4632;font-style:italic}
+  .dfoot em{color:var(--clay-d);font-style:italic}
+
+  /* ═══════════════════ EXAM-ROOM: WISH CARDS ═══════════════════ */
+  .wishes{margin-top:18px;display:grid;gap:12px}
+  .wish{border:1px solid var(--rule);border-top:4px solid var(--accent);background:#fbf6e9;border-radius:var(--r);padding:16px 18px}
+  .w-pfc{--accent:var(--forest)}
+  .w-hippo{--accent:var(--dusk)}
+  .w-amyg{--accent:var(--clay)}
+  .wish .whead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+  .wish h3{font-family:var(--display);font-weight:600;font-size:1.08rem;color:var(--ink);font-variation-settings:"opsz" 30}
+  .wish .wrole{font-family:var(--display);font-style:italic;font-size:.92rem;color:var(--accent)}
+  .witem{display:grid;grid-template-columns:20px 1fr;gap:9px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:.9rem;line-height:1.42;color:#43392e}
+  .witem:last-child{border-bottom:0}
+  .wtick{color:var(--accent);font-weight:800;font-family:var(--sans)}
+
+  /* ═══════════════════ EXAM-ROOM: VAGUS EXPLAINER + REFRAME TOOL ═══════════════════ */
+  .vent-explain{margin-top:20px;padding:16px 18px;border-radius:14px;background:rgba(143,176,160,.12);border:1px solid rgba(143,176,160,.3);font-size:.92rem;line-height:1.55;color:#d7e0d2}
+  .vent-explain .vlead{font-family:var(--display);font-style:italic;font-size:1.02rem;color:#f0e7d2;display:block;margin-bottom:7px}
+  .vent-explain b{color:#bfe0cd;font-weight:600}
+  .reframe{display:flex;flex-direction:column;align-items:center;gap:16px;padding:12px 6px 2px;text-align:center}
+  .rphrase{font-family:var(--display);font-weight:400;font-size:1.2rem;line-height:1.35;color:#fdf7ea;font-variation-settings:"opsz" 48,"SOFT" 50;max-width:25ch}
+  .rphrase em{font-style:italic;color:#e8c79a;display:block;margin-top:5px}
+  .rafter{display:none;font-family:var(--display);font-style:italic;font-size:1.05rem;color:#f3e6c9;max-width:26ch}
+  .rafter.show{display:block;animation:fadein .8s ease}
+</style>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="In the Exam Room — the neuroscience of MCAT performance">
+<meta property="og:description" content="How the prefrontal cortex, hippocampus and amygdala decide every answer — and how to run your own brain chemistry when the pressure hits.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astrocyte74.github.io/the-calm-before/exam-room.html">
+<meta property="og:image" content="https://astrocyte74.github.io/the-calm-before/assets/og-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="In the Exam Room — a calm dawn courtroom scene">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="In the Exam Room — the neuroscience of MCAT performance">
+<meta name="twitter:description" content="How three brain regions decide every answer — and how to run your own neurochemistry under pressure.">
+<meta name="twitter:image" content="https://astrocyte74.github.io/the-calm-before/assets/og-share.png">
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="bar" id="bar">
+  <a class="brand" href="#top" aria-label="The Calm Before">
+    <span class="mark" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3c-2.5 3-4.5 5-4.5 8a4.5 4.5 0 0 0 9 0c0-3-2-5-4.5-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="1.4" fill="currentColor"/></svg>
+    </span>
+    <span class="name">The Calm <em>Before</em></span>
+  </a>
+  <a class="tobreathe" href="#tools"><span class="puff"></span>Breathe</a>
+</header>
+
+<main id="top">
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero reveal">
+    <div class="ph">
+      <div class="motes" aria-hidden="true"></div>
+      <img src="assets/courtroom-dawn.webp" alt="Soft painterly empty courtroom chamber at dawn">
+      <div class="ph-inner">
+        <span class="eyebrow">Performance neuroscience · in the exam room</span>
+        <h1>Inside the<em>Exam Room</em></h1>
+        <p class="sub">The neuroscience of MCAT performance — and how to run your own brain chemistry when the pressure hits.</p>
+        <div class="meta">
+          <span>Part of The Calm Before</span><span class="dot"></span>
+          <span>Compiled June 2026</span><span class="dot"></span>
+          <span>Affective &amp; cognitive neuroscience</span>
+        </div>
+      </div>
+      <div class="scrollcue" aria-hidden="true"><span class="line"></span>Scroll</div>
+    </div>
+  </section>
+
+  <!-- ═══════ SERIES NAV ═══════ -->
+  <nav class="series" aria-label="Chapters">
+    <a class="schap" href="index.html" id="seriesA">The Calm Before</a>
+    <span class="ssep" aria-hidden="true">·</span>
+    <a class="schap cur" aria-current="page">In the Exam Room</a>
+  </nav>
+
+  <!-- ═══════ THREE PLAYERS — INTRO + BRAIN IMAGE ═══════ -->
+  <section class="mechanism reveal" id="players">
+    <span class="eyebrow">The cast</span>
+    <h2 class="section">Three regions decide every <em>answer</em>.</h2>
+    <p class="lede">Every multiple-choice outcome is a negotiation between three brain regions. Know what each one does — and what fails under pressure — and you hold a physiological edge most candidates don't.</p>
+    <div class="mech-feature">
+      <img src="assets/brain-three.webp" alt="Painted head in profile with three softly glowing brain regions">
+      <div class="cap">A courtroom inside your skull.</div>
+    </div>
+  </section>
+
+  <!-- ═══════ THE THREE PLAYERS ═══════ -->
+  <section class="players reveal" style="padding-top:0">
+
+    <div class="player p-pfc">
+      <div class="prole"><span class="metaphor">The Judge</span><span class="region">Prefrontal cortex · DLPFC</span></div>
+      <p class="ptag">The seat of executive function — calm, systematic, in full control of the courtroom.</p>
+      <ul class="does">
+        <li><b>Working memory</b> — holding the question stem, all four options, and the relevant knowledge simultaneously in awareness</li>
+        <li><b>Inhibitory control</b> — actively suppressing attractive but incorrect distractors</li>
+        <li><b>Systematic reasoning</b> — weighing options against each other, not reacting to what feels familiar</li>
+        <li><b>Strategic regulation</b> — deciding when to commit, when to flag and move on, how to pace</li>
+      </ul>
+      <div class="threat"><b>What threatens the judge —</b> elevated cortisol and excess norepinephrine (the neurochemical flood that follows amygdala activation) destabilize DLPFC firing. Pyramidal neurons lose their rhythm, working memory shrinks, inhibition weakens. The judge starts making rushed rulings and loses the room.</div>
+      <p class="pneuro">Dense pyramidal networks in layers III &amp; V of the dorsolateral PFC, tuned by dopamine (D1) and norepinephrine — at optimal catecholamine levels these circuits hold stable, robust firing.</p>
+    </div>
+
+    <div class="player p-hippo">
+      <div class="prole"><span class="metaphor">The Expert Witness</span><span class="region">Hippocampus · CA3 / CA1</span></div>
+      <p class="ptag">Your retrieval engine for the declarative knowledge you spent months encoding.</p>
+      <ul class="does">
+        <li><b>CA3 pattern completion</b> — reconstructing a full memory from a partial cue (a stem triggering a whole concept)</li>
+        <li><b>CA1 output neurons</b> — transferring retrieved information into working memory for conscious use</li>
+        <li><b>Entorhinal integration</b> — weaving in the contextual cues that locate the right memory</li>
+      </ul>
+      <div class="threat"><b>What threatens the witness —</b> glucocorticoid receptors sit in extraordinarily high density throughout the hippocampus. When cortisol surges, it binds them and disrupts the glutamatergic signalling that drives retrieval. The files are still there — you encoded them — but the access channels are chemically gated shut. This is the neurobiology of going blank on a question you absolutely studied.</div>
+      <p class="pneuro">The witness freezes mid-testimony not because they don't know the answer, but because the room descended into chaos before they could speak.</p>
+    </div>
+
+    <div class="player p-amyg">
+      <div class="prole"><span class="metaphor">The Bailiff</span><span class="region">Amygdala · basolateral (BLA)</span></div>
+      <p class="ptag">Your threat-detection and emotional-salience system — useful in the right dose, dangerous with a hair trigger.</p>
+      <ul class="does">
+        <li><b>Maintains arousal &amp; vigilance</b> across a long exam</li>
+        <li><b>Flags questions</b> that deserve extra attention</li>
+        <li><b>Supplied motivational drive</b> during study, through emotional memory tagging</li>
+      </ul>
+      <div class="threat"><b>What threatens the room —</b> a hard question, a bad time-check, an unfamiliar format trips the trigger. The BLA fires the HPA and SAM axes in parallel: a rapid catecholamine surge (epinephrine, norepinephrine) within seconds, and a slower sustained cortisol release peaking 15–20 minutes later. The BLA also sends direct projections to the PFC that actively suppress it.</div>
+      <p class="pneuro">The bailiff pulls the fire alarm. Cortisol and adrenaline flood the room like toxic smoke — the judge can't see, the witness loses the notes, and the wrong answers suddenly look like the most convincing witnesses present.</p>
+    </div>
+
+  </section>
+
+  <div class="divider" aria-hidden="true">
+    <svg width="60" height="14" viewBox="0 0 60 14"><path d="M2 7h18M40 7h18" stroke="currentColor" stroke-width="1"/><path d="M30 2c-3 3-5 5-5 7s2 3 5 0c3 3 5 2 5 0s-2-4-5-7Z" fill="currentColor" opacity=".5"/></svg>
+  </div>
+
+  <!-- ═══════ FALSE FAMILIARITY ═══════ -->
+  <section class="reveal" id="danger">
+    <span class="eyebrow">The MCQ trap</span>
+    <h2 class="section">False <em>familiarity</em>.</h2>
+    <p class="lede">Multiple choice is neurologically unique: the wrong answers are engineered to exploit exactly what stress does to your brain.</p>
+    <div class="write-banner">
+      <img src="assets/mirage.webp" alt="Painted soft mirage on a calm lake at dusk">
+      <div class="wb-cap">A wrong answer that <em>feels</em> familiar is not the same as one you <em>know</em>.</div>
+    </div>
+    <div class="danger">
+      <div class="dlabel">When the amygdala runs hot</div>
+      <div class="ditem"><span class="di">1</span><p>The hippocampus defaults to <b>familiarity-based recognition</b> over accurate recall — a wrong answer in familiar terminology fires a false "I know this" signal.</p></div>
+      <div class="ditem"><span class="di">2</span><p>The PFC loses the <b>inhibitory control</b> needed to override that false signal.</p></div>
+      <div class="ditem"><span class="di">3</span><p>The amygdala itself <b>reinforces emotionally familiar</b> options regardless of their accuracy.</p></div>
+      <p class="dfoot">A calm, well-functioning PFC sees through these coached witnesses immediately. A stressed PFC defers to whoever <em>sounds</em> most confident. Anxiety doesn't just make you feel bad — it actively manufactures wrong answers from a brain that knows the right ones.</p>
+    </div>
+    <div class="para-pair">
+      <div class="pcard old">
+        <span class="tag"><span class="glyph">✕</span>Stressed brain</span>
+        <ul>
+          <li>Delegates to whichever option feels familiar</li>
+          <li>Reacts to recognition instead of reasoning</li>
+          <li>Drops items from working memory</li>
+          <li>The bailiff runs the courtroom</li>
+        </ul>
+      </div>
+      <div class="pcard new">
+        <span class="tag"><span class="glyph">✓</span>Calm brain</span>
+        <ul>
+          <li>Sees through coached distractors</li>
+          <li>Weighs options systematically</li>
+          <li>Holds all four options online</li>
+          <li>The judge holds the gavel</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ WISH LIST ═══════ -->
+  <section class="paradigm reveal" id="wish">
+    <span class="eyebrow">The wish list</span>
+    <h2 class="section">What you want each <em>region</em> to do.</h2>
+    <p class="lede">Three small job descriptions. If every region stays in role, the right answer reaches the verdict.</p>
+    <div class="wishes">
+      <div class="wish w-pfc">
+        <div class="whead"><h3>Prefrontal cortex</h3><span class="wrole">The Judge</span></div>
+        <div class="witem"><span class="wtick">✓</span>Hold all options in working memory without dropping items</div>
+        <div class="witem"><span class="wtick">✓</span>Eliminate wrong answers with logic, not instinct</div>
+        <div class="witem"><span class="wtick">✓</span>Resist the pull of familiar-sounding distractors</div>
+        <div class="witem"><span class="wtick">✓</span>Stay online across the full exam without cortisol-driven degradation</div>
+        <div class="witem"><span class="wtick">✓</span>Regulate pacing — commit and move, don't perseverate</div>
+      </div>
+      <div class="wish w-hippo">
+        <div class="whead"><h3>Hippocampus</h3><span class="wrole">The Expert Witness</span></div>
+        <div class="witem"><span class="wtick">✓</span>Keep retrieval channels open and responsive under pressure</div>
+        <div class="witem"><span class="wtick">✓</span>Distinguish genuine memory from false familiarity</div>
+        <div class="witem"><span class="wtick">✓</span>Access contextual encodings — how you learned it, what category it belongs to</div>
+        <div class="witem"><span class="wtick">✓</span>Hand clean, accurate testimony to the PFC on every question</div>
+      </div>
+      <div class="wish w-amyg">
+        <div class="whead"><h3>Amygdala</h3><span class="wrole">The Bailiff</span></div>
+        <div class="witem"><span class="wtick">✓</span>Stay present but quiet — enough arousal to perform, not enough to dominate</div>
+        <div class="witem"><span class="wtick">✓</span>Do not pull the fire alarm over a single hard question</div>
+        <div class="witem"><span class="wtick">✓</span>Do not flood the system with cortisol mid-exam</div>
+        <div class="witem"><span class="wtick">✓</span>Remain a servant of the process — not its commander</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TOOLKIT — THE VENTILATION SWITCH ═══════ -->
+  <section class="toolkit reveal" id="tools">
+    <span class="eyebrow">When the alarm goes off</span>
+    <h2 class="section">The <em>ventilation switch</em>.</h2>
+    <p class="lede">You will feel it — the surge, the tightening in the chest, the room getting louder. The bailiff pulled the alarm. Here is the critical thing to understand: you have a switch. It is always accessible. It takes less than thirty seconds.</p>
+    <div class="vent-explain">
+      <span class="vlead">The switch is your vagus nerve.</span>
+      It is the primary efferent highway of the parasympathetic nervous system. Vagal activation releases <b>acetylcholine</b> that directly counteracts the catecholamine flood, signals the hypothalamus to <b>down-regulate HPA-axis output</b>, lowers BLA firing rate, and <b>restores prefrontal tone</b>. The judge gets the gavel back. The witness finds the notes. None of it requires leaving your seat.
+    </div>
+
+    <!-- Tool 1: Physiological Sigh -->
+    <div class="tool">
+      <h3>The <em>physiological sigh</em></h3>
+      <p class="tsub">Fastest-acting. A double inhale through the nose — a full breath, then a short sniff on top — followed by a long, slow exhale through the mouth.</p>
+      <div class="breath-stage">
+        <div class="breath-orb-wrap">
+          <div class="ring"></div><div class="ring r2"></div>
+          <div class="orb" id="sighOrb"></div>
+        </div>
+        <div class="breath-phase" id="sighPhase">Press begin</div>
+        <div class="breath-count" id="sighCount">&nbsp;</div>
+      </div>
+      <div class="breath-ctrl">
+        <button class="btn primary" id="sighStart">Begin</button>
+        <button class="btn ghost" id="sighStop" disabled>Pause</button>
+      </div>
+      <div class="breath-meta" id="sighMeta">One to two cycles resets your state</div>
+      <div class="sci"><b>Why:</b> the extended exhale drives vagal activation by raising the ratio of parasympathetic to sympathetic tone. The double inhale maximally inflates the alveoli; the long mouth exhale is what signals safety. A measurable shift in state within seconds.</div>
+    </div>
+
+    <!-- Tool 2: Box Breathing -->
+    <div class="tool">
+      <h3>Box <em>breathing</em></h3>
+      <p class="tsub">Sustained reset. Inhale 4 · hold 4 · exhale 4 · hold 4 — the protocol high-performance operators use to make accurate decisions under acute physiological stress.</p>
+      <div class="breath-stage">
+        <div class="breath-orb-wrap">
+          <div class="ring"></div><div class="ring r2"></div>
+          <div class="orb" id="boxOrb"></div>
+        </div>
+        <div class="breath-phase" id="boxPhase">Press begin</div>
+        <div class="breath-count" id="boxCount">&nbsp;</div>
+      </div>
+      <div class="breath-ctrl">
+        <button class="btn primary" id="boxStart">Begin</button>
+        <button class="btn ghost" id="boxStop" disabled>Pause</button>
+      </div>
+      <div class="breath-meta" id="boxMeta">Three full cycles recommended</div>
+      <div class="sci"><b>Why:</b> paced diaphragmatic breathing down-regulates the HPA axis and stabilises the moderate arousal that optimal performance actually runs on — the same inverted-U relationship the calm-before evidence describes.</div>
+    </div>
+
+    <!-- Tool 3: Cognitive Reappraisal -->
+    <div class="tool">
+      <h3>Cognitive <em>reappraisal</em></h3>
+      <p class="tsub">The most powerful PFC tool you own. Deliberately reframe the feeling — threat becomes challenge, without losing the useful arousal.</p>
+      <div class="reframe">
+        <p class="rphrase">This arousal is my brain preparing me to perform.<em>This is challenge, not threat.</em></p>
+        <button class="btn primary" id="rBtn">Reframe it</button>
+        <p class="rafter" id="rAfter">The smoke clears — without turning off the lights.</p>
+      </div>
+      <div class="sci"><b>Why:</b> neuroimaging shows cognitive reappraisal reduces amygdala activation within seconds and shifts physiological state from threat to challenge while preserving the arousal. You don't calm down — you re-categorise, and the chemistry follows.</div>
+    </div>
+  </section>
+
+  <!-- ═══════ CLOSING — COURTROOM IN CONTROL ═══════ -->
+  <section class="sleep reveal">
+    <div class="ph">
+      <img src="assets/courtroom-control.webp" alt="Painted orderly sunlit courtroom in warm afternoon light">
+      <div class="pull">
+        <q>You have built the case. Now let the judge hear it.</q>
+      </div>
+    </div>
+    <div class="sleep-body">
+      <span class="eyebrow">The courtroom in full control</span>
+      <h2 class="section">Order in the <em>room</em>.</h2>
+      <p>When everything works as it should: the bailiff is present but seated, the expert witness is relaxed and freely testifying, and the judge is calm, systematic, and delivering sound verdicts — the wrong answers exposed as the coached witnesses they are. When the alarm goes off — and it will, at least once — you now know exactly what is happening physiologically, and you can hit the ventilation switch and restore order inside half a minute.</p>
+      <div class="sleep-paradox"><b>Your only job in that room —</b> keep the courtroom functional long enough for the right answer to reach the verdict. The knowledge is in there. The months of work are encoded. Let the prep do its work.</div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="foot">
+    <div class="flourish" aria-hidden="true">
+      <svg width="46" height="14" viewBox="0 0 60 14"><path d="M2 7h18M40 7h18" stroke="currentColor" stroke-width="1"/><path d="M30 2c-3 3-5 5-5 7s2 3 5 0c3 3 5 2 5 0s-2-4-5-7Z" fill="currentColor" opacity=".6"/></svg>
+    </div>
+    <p class="disclaimer">A synthesis of cognitive and affective neuroscience, for educational and performance-preparation purposes only — not individualized medical advice. Apply it alongside your own judgment and professional guidance.</p>
+    <div class="meta">In the Exam Room · Part of The Calm Before · Compiled June 2026</div>
+  </footer>
+
+</main>
+
+<script>
+/* ═════════ progress + sticky + reveal ═════════ */
+(function(){
+  const prog=document.getElementById('progress'),bar=document.getElementById('bar');
+  function onScroll(){
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.width=(h>0?(scrollY/h*100):0)+'%';
+    bar.classList.toggle('on',scrollY>8);
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+
+/* ═════════ hero motes ═════════ */
+(function(){
+  const box=document.querySelector('.motes');if(!box)return;
+  const N=14,reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduced)return;
+  for(let i=0;i<N;i++){
+    const m=document.createElement('i');
+    const s=3+Math.random()*5;
+    m.style.left=(Math.random()*100)+'%';
+    m.style.width=m.style.height=s+'px';
+    m.style.animationDuration=(9+Math.random()*10)+'s';
+    m.style.animationDelay=(-Math.random()*14)+'s';
+    box.appendChild(m);
+  }
+})();
+
+/* ═════════ breathing controller (drives the sigh + box orbs) ═════════ */
+function makeBreath(ids, steps, meta){
+  const orb=document.getElementById(ids.orb),phase=document.getElementById(ids.phase),
+        count=document.getElementById(ids.count),bStart=document.getElementById(ids.start),
+        bStop=document.getElementById(ids.stop),bMeta=document.getElementById(ids.meta);
+  if(!orb)return;
+  let i=0,cycle=0,running=false,timer=null,counter=null,remain=0;
+  function render(){
+    const s=steps[i];
+    phase.textContent=s.name;
+    orb.style.transitionDuration=(s.dur/1000)+'s, '+(s.dur/1000)+'s';
+    orb.style.transform='scale('+s.scale+')';
+    orb.style.boxShadow=s.scale>0.75?'0 0 56px rgba(232,199,154,.55),inset 0 0 30px rgba(255,255,255,.2)':'0 0 24px rgba(232,199,154,.28),inset 0 0 30px rgba(255,255,255,.12)';
+    remain=Math.round(s.dur/1000);count.textContent=remain>0?remain:'';
+  }
+  function tick(){remain--;if(remain>=1)count.textContent=remain;}
+  function advance(){
+    i=(i+1)%steps.length;
+    if(i===0){cycle++;if(meta)bMeta.textContent=meta(cycle);}
+    render();
+    clearInterval(counter);counter=setInterval(tick,1000);
+    timer=setTimeout(advance,steps[i].dur);
+  }
+  function start(){
+    if(running)return;running=true;bStart.textContent='Running';bStart.disabled=true;bStop.disabled=false;
+    render();
+    clearInterval(counter);counter=setInterval(tick,1000);
+    timer=setTimeout(advance,steps[i].dur);
+  }
+  function stop(){
+    running=false;bStart.textContent='Resume';bStart.disabled=false;bStop.disabled=true;
+    clearTimeout(timer);clearInterval(counter);phase.textContent='Paused';count.textContent='';orb.style.transitionDuration='.4s,.4s';
+  }
+  bStart.addEventListener('click',start);bStop.addEventListener('click',stop);
+}
+makeBreath(
+  {orb:'sighOrb',phase:'sighPhase',count:'sighCount',start:'sighStart',stop:'sighStop',meta:'sighMeta'},
+  [
+    {name:'Inhale (nose)',dur:1700,scale:1.0},
+    {name:'Sniff (top up)',dur:700,scale:1.14},
+    {name:'Exhale — long, slow',dur:3200,scale:0.5},
+  ],
+  c=>c>=2?('Nice — '+c+' sighs. Notice the shift.'):('Sigh '+(c+1)+' · aim for 1–3')
+);
+makeBreath(
+  {orb:'boxOrb',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta'},
+  [
+    {name:'Breathe in',dur:4000,scale:1.0},
+    {name:'Hold',dur:4000,scale:1.0},
+    {name:'Breathe out',dur:4000,scale:0.5},
+    {name:'Hold',dur:4000,scale:0.5},
+  ],
+  c=>c>=3?('Nice — '+c+' cycles. Keep going.'):('Cycle '+(c+1)+' of 3')
+);
+
+/* ═════════ cognitive reappraisal reveal ═════════ */
+(function(){
+  const btn=document.getElementById('rBtn'),after=document.getElementById('rAfter');
+  if(!btn)return;
+  btn.addEventListener('click',()=>{
+    after.classList.remove('show');void after.offsetWidth;   // restart fade
+    after.classList.add('show');
+    btn.textContent='Again';
+  });
+})();
+
+/* ═════════ series strip: Sam variant via #sam ═════════ */
+(function(){
+  if(location.hash.indexOf('sam')===-1)return;
+  const a=document.getElementById('seriesA');
+  if(a){a.textContent="Sam’s MCAT";a.setAttribute('href','sam.html');a.removeAttribute('id');}
+  const eb=document.querySelector('.hero .eyebrow');
+  if(eb)eb.textContent='Sam — your brain in the exam room';
+  document.title='In the Exam Room — Sam’s MCAT';
+})();
+</script>
+</body>
+</html>
