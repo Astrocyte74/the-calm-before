@@ -208,8 +208,11 @@ em.accent{font-style:italic;color:var(--clay-d)}
   width:104px;height:104px;border-radius:50%;
   background:radial-gradient(circle at 32% 28%,#f3dcae,#caa15f 55%,#9c7230 100%);
   box-shadow:0 0 40px rgba(232,199,154,.4),inset 0 0 30px rgba(255,255,255,.18);
-  transform:scale(.5);transition:transform .15s linear, box-shadow .15s linear;
+  transform:scale(.5);transition:transform .4s ease, box-shadow .4s ease;
 }
+/* sigh: per-phase draining timer ring — gives the held/still moments a moving cue */
+.breath-timer{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible;pointer-events:none}
+.breath-timer circle{fill:none;stroke:rgba(240,214,176,.7);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0;filter:drop-shadow(0 0 5px rgba(232,199,154,.55))}
 .breath-phase{font-family:var(--display);font-weight:500;font-size:1.3rem;letter-spacing:-.01em;color:#fdf7ea;font-variation-settings:"opsz" 40;min-height:1.3em;text-align:center}
 .breath-count{font-family:var(--sans);font-weight:600;font-size:.78rem;letter-spacing:.12em;color:#c79a55;min-height:1em}
 .breath-ctrl{display:flex;gap:10px;justify-content:center;margin-top:16px}
@@ -221,8 +224,10 @@ em.accent{font-style:italic;color:var(--clay-d)}
 .btn.ghost:hover{border-color:rgba(244,236,219,.6)}
 .breath-meta{text-align:center;margin-top:12px;font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#9aaba0}
 
-  /* box-breathing = a square; pattern ribbon reflects each exercise's rhythm */
-  .breath-orb-wrap.box .orb,.breath-orb-wrap.box .ring{border-radius:15%}
+  /* box breathing = a cool mint light tracing a square — warm orb vs cool box */
+  .breath-box{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .breath-box .track{fill:none;stroke:rgba(143,224,200,.18);stroke-width:3}
+  .breath-box .progress{fill:none;stroke:#8fe6c6;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:10 90;stroke-dashoffset:0;filter:drop-shadow(0 0 7px rgba(143,230,198,.85))}
   .pattern{display:flex;gap:5px;margin:14px auto 0;width:100%;max-width:240px}
   .pattern .seg{flex:1;display:grid;place-items:center;gap:1px;padding:8px 2px;border-radius:9px;background:rgba(244,236,219,.06);border:1px solid rgba(244,236,219,.13);font-family:var(--sans);font-size:.56rem;letter-spacing:.03em;color:#8fa092;transition:background .25s,color .25s,border-color .25s,transform .25s}
   .pattern .seg b{font-size:.82rem;line-height:1;color:#b9c9bb;font-weight:600}
@@ -528,6 +533,7 @@ footer.foot a{color:#cdbfa6}
       <div class="breath-stage">
         <div class="breath-orb-wrap sigh">
           <div class="ring"></div><div class="ring r2"></div>
+          <svg class="breath-timer" viewBox="0 0 190 190" aria-hidden="true"><circle id="sighRing" cx="95" cy="95" r="90" pathLength="100"/></svg>
           <div class="orb" id="sighOrb"></div>
         </div>
         <div class="breath-phase" id="sighPhase">Press begin</div>
@@ -552,8 +558,10 @@ footer.foot a{color:#cdbfa6}
       <p class="tsub">Sustained reset. Inhale 4 · hold 4 · exhale 4 · hold 4 — the protocol high-performance operators use to make accurate decisions under acute physiological stress.</p>
       <div class="breath-stage">
         <div class="breath-orb-wrap box">
-          <div class="ring"></div><div class="ring r2"></div>
-          <div class="orb" id="boxOrb"></div>
+          <svg class="breath-box" viewBox="0 0 180 180" aria-hidden="true">
+            <path class="track" d="M18 142 L18 38 Q18 18 38 18 L142 18 Q162 18 162 38 L162 142 Q162 162 142 162 L38 162 Q18 162 18 142 Z"/>
+            <path class="progress" id="boxProgress" pathLength="100" d="M18 142 L18 38 Q18 18 38 18 L142 18 Q162 18 162 38 L162 142 Q162 162 142 162 L38 162 Q18 162 18 142 Z"/>
+          </svg>
         </div>
         <div class="breath-phase" id="boxPhase">Press begin</div>
         <div class="breath-count" id="boxCount">&nbsp;</div>
@@ -644,58 +652,74 @@ footer.foot a{color:#cdbfa6}
 
 /* ═════════ breathing controller (drives the sigh + box orbs) ═════════ */
 function makeBreath(ids, steps, meta){
-  const orb=document.getElementById(ids.orb),phase=document.getElementById(ids.phase),
-        count=document.getElementById(ids.count),bStart=document.getElementById(ids.start),
-        bStop=document.getElementById(ids.stop),bMeta=document.getElementById(ids.meta);
+  const $=id=>id?document.getElementById(id):null;
+  const phase=$(ids.phase),count=$(ids.count),bStart=$(ids.start),bStop=$(ids.stop),
+        bMeta=$(ids.meta),orb=$(ids.orb),ring=$(ids.ring),comet=$(ids.comet);
   const segs=ids.pattern?[...document.getElementById(ids.pattern).querySelectorAll('.seg')]:[];
-  if(!orb)return;
-  let i=0,cycle=0,running=false,timer=null,counter=null,remain=0;
-  function render(){
+  if(!phase)return;
+  let i=0,cycle=0,running=false,timer=null,counter=null,remain=0,acc=1;
+  const reflow=el=>{void el.getBoundingClientRect();};
+  function enter(snap){
     const s=steps[i];
     phase.textContent=s.name;
-    orb.style.transitionDuration=(s.dur/1000)+'s, '+(s.dur/1000)+'s';
-    orb.style.transform='scale('+s.scale+')';
-    orb.style.boxShadow=s.scale>0.75?'0 0 56px rgba(232,199,154,.55),inset 0 0 30px rgba(255,255,255,.2)':'0 0 24px rgba(232,199,154,.28),inset 0 0 30px rgba(255,255,255,.12)';
-    remain=Math.round(s.dur/1000);count.textContent=remain>0?remain:'';
+    if(orb){                                   /* sigh: scale + glow, eased per phase */
+      const ez=s.ease||'ease';
+      orb.style.transition=snap?'transform .35s ease, box-shadow .35s ease'
+        :'transform '+s.dur+'ms '+ez+', box-shadow '+s.dur+'ms '+ez;
+      orb.style.transform='scale('+s.scale+')';
+      orb.style.boxShadow=s.scale>0.75
+        ?'0 0 60px rgba(232,199,154,.6),inset 0 0 30px rgba(255,255,255,.22)'
+        :'0 0 22px rgba(232,199,154,.26),inset 0 0 30px rgba(255,255,255,.12)';
+    }
+    if(ring){                                  /* sigh: drain the timer ring over the phase */
+      ring.style.transition='none';ring.style.strokeDashoffset='0';reflow(ring);
+      ring.style.transition='stroke-dashoffset '+s.dur+'ms linear';ring.style.strokeDashoffset='100';
+    }
+    if(comet){                                 /* box: glide the light one side of the square */
+      comet.style.transition=snap?'none':'stroke-dashoffset '+s.dur+'ms linear';
+      comet.style.strokeDashoffset=String(-25*acc);
+    }
+    remain=Math.round(s.dur/1000);if(count)count.textContent=remain>0?remain:'';
     segs.forEach((el,idx)=>el.classList.toggle('active',idx===i));
   }
-  function tick(){remain--;if(remain>=1)count.textContent=remain;}
+  function tick(){remain--;if(count&&remain>=1)count.textContent=remain;}
+  function schedule(){clearInterval(counter);counter=setInterval(tick,1000);timer=setTimeout(advance,steps[i].dur);}
   function advance(){
-    i=(i+1)%steps.length;
-    if(i===0){cycle++;if(meta)bMeta.textContent=meta(cycle);}
-    render();
-    clearInterval(counter);counter=setInterval(tick,1000);
-    timer=setTimeout(advance,steps[i].dur);
+    i=(i+1)%steps.length;acc++;
+    if(i===0){cycle++;if(meta&&bMeta)bMeta.textContent=meta(cycle);}
+    enter(false);schedule();
   }
   function start(){
     if(running)return;running=true;bStart.textContent='Running';bStart.disabled=true;bStop.disabled=false;
-    render();
-    clearInterval(counter);counter=setInterval(tick,1000);
-    timer=setTimeout(advance,steps[i].dur);
+    enter(false);schedule();
   }
+  function freeze(el){const o=getComputedStyle(el).strokeDashoffset;el.style.transition='none';el.style.strokeDashoffset=o;}
   function stop(){
     running=false;bStart.textContent='Resume';bStart.disabled=false;bStop.disabled=true;
-    clearTimeout(timer);clearInterval(counter);phase.textContent='Paused';count.textContent='';orb.style.transitionDuration='.4s,.4s';
+    clearTimeout(timer);clearInterval(counter);phase.textContent='Paused';if(count)count.textContent='';
+    if(orb)orb.style.transition='transform .5s ease, box-shadow .5s ease';
+    if(ring)freeze(ring);
+    if(comet)freeze(comet);
     segs.forEach(el=>el.classList.remove('active'));
   }
   bStart.addEventListener('click',start);bStop.addEventListener('click',stop);
 }
 makeBreath(
-  {orb:'sighOrb',phase:'sighPhase',count:'sighCount',start:'sighStart',stop:'sighStop',meta:'sighMeta',pattern:'sighPattern'},
+  {orb:'sighOrb',ring:'sighRing',phase:'sighPhase',count:'sighCount',start:'sighStart',stop:'sighStop',meta:'sighMeta',pattern:'sighPattern'},
   [
-    {name:'Inhale (nose)',dur:1700,scale:1.0},
-    {name:'Sniff (top up)',dur:700,scale:1.14},
-    {name:'Exhale — long, slow',dur:3200,scale:0.5},
+    {name:'Inhale (nose)',dur:1700,scale:0.95,ease:'cubic-bezier(.18,.7,.3,1)'},
+    {name:'Sniff (top up)',dur:700,scale:1.2,ease:'cubic-bezier(.3,.55,.2,1)'},
+    {name:'Exhale — long, slow',dur:3200,scale:0.45,ease:'cubic-bezier(.55,0,.7,.35)'},
   ],
   c=>c>=2?('Nice — '+c+' sighs. Notice the shift.'):('Sigh '+(c+1)+' · aim for 1–3')
 );
 makeBreath(
-  {orb:'boxOrb',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta',pattern:'boxPattern'},
+  {comet:'boxProgress',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta',pattern:'boxPattern'},
   [
-    {name:'Breathe in',dur:4000,scale:1.0},
-    {name:'Hold',dur:4000,scale:1.0},
-    {name:'Breathe out',dur:4000,scale:0.5},
-    {name:'Hold',dur:4000,scale:0.5},
+    {name:'Breathe in',dur:4000},
+    {name:'Hold',dur:4000},
+    {name:'Breathe out',dur:4000},
+    {name:'Hold',dur:4000},
   ],
   c=>c>=3?('Nice — '+c+' cycles. Keep going.'):('Cycle '+(c+1)+' of 3')
 );
