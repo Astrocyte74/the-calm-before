@@ -65,7 +65,7 @@ body::before{
 /* ═══════════════════ PROGRESS + STICKY HEAD ═══════════════════ */
 #progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--clay),var(--gold),var(--forest));z-index:200;transition:width .12s linear}
 header.bar{
-  position:sticky;top:0;z-index:150;
+  position:relative;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:11px 18px;
   background:linear-gradient(var(--paper),var(--paper) 60%,rgba(244,236,219,.78));
@@ -122,7 +122,8 @@ em.accent{font-style:italic;color:var(--clay-d)}
 .divider svg{flex:none}
 
 /* ═══════════════════ SERIES STRIP (chapter nav) ═══════════════════ */
-.series{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;padding:16px 22px;border-bottom:1px solid var(--rule);background:linear-gradient(180deg,var(--paper),var(--paper-2));font-family:var(--sans);font-size:.64rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase}
+.series{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;padding:14px 22px;border-bottom:1px solid var(--rule);background:var(--paper);font-family:var(--sans);font-size:.64rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;position:sticky;top:0;z-index:150;transition:box-shadow .25s}
+.series.stuck{box-shadow:0 8px 20px -12px rgba(33,28,22,.3)}
 .series .schap{color:var(--muted);text-decoration:none;padding-bottom:3px;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;cursor:pointer}
 .series .schap:hover{color:var(--ink)}
 .series .schap.cur{color:var(--forest-d);border-bottom-color:var(--forest);cursor:default}
@@ -944,11 +945,12 @@ footer.foot a{color:#cdbfa6}
 <script>
 /* ═════════ progress + sticky + reveal ═════════ */
 (function(){
-  const prog=document.getElementById('progress'),bar=document.getElementById('bar');
+  const prog=document.getElementById('progress'),bar=document.getElementById('bar'),series=document.querySelector('.series');
   function onScroll(){
     const h=document.documentElement.scrollHeight-window.innerHeight;
     prog.style.width=(h>0?(scrollY/h*100):0)+'%';
     bar.classList.toggle('on',scrollY>8);
+    if(series)series.classList.toggle('stuck',series.getBoundingClientRect().top<=0);
   }
   addEventListener('scroll',onScroll,{passive:true});onScroll();
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
