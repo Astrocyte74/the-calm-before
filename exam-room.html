@@ -227,7 +227,14 @@ em.accent{font-style:italic;color:var(--clay-d)}
   /* box breathing = a cool mint light tracing a square — warm orb vs cool box */
   .breath-box{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .breath-box .track{fill:none;stroke:rgba(143,224,200,.18);stroke-width:3}
-  .breath-box .progress{fill:none;stroke:#8fe6c6;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:10 90;stroke-dashoffset:10;filter:drop-shadow(0 0 7px rgba(143,230,198,.85))}
+  .breath-box .progress{fill:none;stroke:#8fe6c6;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:10 90;stroke-dashoffset:10;filter:drop-shadow(0 0 7px rgba(143,230,198,.85));transition:stroke .6s ease}
+  /* central volume orb — grows on inhale, holds, shrinks on exhale (cool-family colour per phase) */
+  .box-orb{position:relative;width:90px;height:90px;border-radius:50%;
+    background-image:radial-gradient(circle at 34% 30%,rgba(255,255,255,.6),rgba(255,255,255,0) 60%);
+    background-color:#2f9079;
+    box-shadow:0 0 24px rgba(47,144,121,.4),inset 0 0 26px rgba(255,255,255,.2);
+    transform:scale(.42);
+    transition:transform .4s ease, box-shadow .4s ease, background-color .4s ease}
   .pattern{display:flex;gap:5px;margin:14px auto 0;width:100%;max-width:240px}
   .pattern .seg{flex:1;display:grid;place-items:center;gap:1px;padding:8px 2px;border-radius:9px;background:rgba(244,236,219,.06);border:1px solid rgba(244,236,219,.13);font-family:var(--sans);font-size:.56rem;letter-spacing:.03em;color:#8fa092;transition:background .25s,color .25s,border-color .25s,transform .25s}
   .pattern .seg b{font-size:.82rem;line-height:1;color:#b9c9bb;font-weight:600}
@@ -562,6 +569,7 @@ footer.foot a{color:#cdbfa6}
             <path class="track" d="M18 142 L18 38 Q18 18 38 18 L142 18 Q162 18 162 38 L162 142 Q162 162 142 162 L38 162 Q18 162 18 142 Z"/>
             <path class="progress" id="boxProgress" pathLength="100" d="M18 142 L18 38 Q18 18 38 18 L142 18 Q162 18 162 38 L162 142 Q162 162 142 162 L38 162 Q18 162 18 142 Z"/>
           </svg>
+          <div class="box-orb" id="boxOrb"></div>
         </div>
         <div class="breath-phase" id="boxPhase">Press begin</div>
         <div class="breath-count" id="boxCount">&nbsp;</div>
@@ -662,22 +670,28 @@ function makeBreath(ids, steps, meta){
   function enter(snap){
     const s=steps[i];
     phase.textContent=s.name;
-    if(orb){                                   /* sigh: scale + glow, eased per phase */
+    if(orb){                                   /* orb: eased scale + glow per phase */
       const ez=s.ease||'ease';
-      orb.style.transition=snap?'transform .35s ease, box-shadow .35s ease'
-        :'transform '+s.dur+'ms '+ez+', box-shadow '+s.dur+'ms '+ez;
+      orb.style.transition=snap?'transform .35s ease, box-shadow .35s ease, background-color .35s ease'
+        :'transform '+s.dur+'ms '+ez+', box-shadow '+s.dur+'ms '+ez+', background-color '+s.dur+'ms ease';
       orb.style.transform='scale('+s.scale+')';
-      orb.style.boxShadow=s.scale>0.75
-        ?'0 0 60px rgba(232,199,154,.6),inset 0 0 30px rgba(255,255,255,.22)'
-        :'0 0 22px rgba(232,199,154,.26),inset 0 0 30px rgba(255,255,255,.12)';
+      if(s.color){                             /* box: cool-family colour + glow shift per phase */
+        orb.style.backgroundColor=s.color;
+        orb.style.boxShadow='0 0 '+(s.scale>0.7?48:24)+'px '+(s.glow||s.color)+',inset 0 0 26px rgba(255,255,255,.25)';
+      }else{                                   /* sigh: warm gold glow by fullness */
+        orb.style.boxShadow=s.scale>0.75
+          ?'0 0 60px rgba(232,199,154,.6),inset 0 0 30px rgba(255,255,255,.22)'
+          :'0 0 22px rgba(232,199,154,.26),inset 0 0 30px rgba(255,255,255,.12)';
+      }
     }
     if(ring){                                  /* sigh: drain the timer ring over the phase */
       ring.style.transition='none';ring.style.strokeDashoffset='0';reflow(ring);
       ring.style.transition='stroke-dashoffset '+s.dur+'ms linear';ring.style.strokeDashoffset='100';
     }
     if(comet){                                 /* box: glide the light one side of the square */
-      comet.style.transition=snap?'none':'stroke-dashoffset '+s.dur+'ms linear';
+      comet.style.transition=snap?'none':'stroke-dashoffset '+s.dur+'ms linear, stroke '+s.dur+'ms ease';
       comet.style.strokeDashoffset=String(10-25*acc);   /* +10 shift lands the head on each corner */
+      if(s.color)comet.style.stroke=s.color;
     }
     remain=Math.round(s.dur/1000);if(count)count.textContent=remain>0?remain:'';
     segs.forEach((el,idx)=>el.classList.toggle('active',idx===i));
@@ -714,12 +728,12 @@ makeBreath(
   c=>c>=2?('Nice — '+c+' sighs. Notice the shift.'):('Sigh '+(c+1)+' · aim for 1–3')
 );
 makeBreath(
-  {comet:'boxProgress',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta',pattern:'boxPattern'},
+  {orb:'boxOrb',comet:'boxProgress',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta',pattern:'boxPattern'},
   [
-    {name:'Breathe in',dur:4000},
-    {name:'Hold',dur:4000},
-    {name:'Breathe out',dur:4000},
-    {name:'Hold',dur:4000},
+    {name:'Breathe in',dur:4000,scale:1.0,ease:'cubic-bezier(.2,.7,.3,1)',color:'#7af0d8',glow:'rgba(122,240,216,.6)'},
+    {name:'Hold',dur:4000,scale:1.0,ease:'linear',color:'#8fe6c6',glow:'rgba(143,230,198,.5)'},
+    {name:'Breathe out',dur:4000,scale:0.42,ease:'cubic-bezier(.55,0,.7,.35)',color:'#34b89a',glow:'rgba(52,184,154,.5)'},
+    {name:'Hold',dur:4000,scale:0.42,ease:'linear',color:'#2f9079',glow:'rgba(47,144,121,.4)'},
   ],
   c=>c>=3?('Nice — '+c+' cycles. Keep going.'):('Cycle '+(c+1)+' of 3')
 );
