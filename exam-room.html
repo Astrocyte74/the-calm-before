@@ -221,6 +221,14 @@ em.accent{font-style:italic;color:var(--clay-d)}
 .btn.ghost:hover{border-color:rgba(244,236,219,.6)}
 .breath-meta{text-align:center;margin-top:12px;font-family:var(--sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#9aaba0}
 
+  /* box-breathing = a square; pattern ribbon reflects each exercise's rhythm */
+  .breath-orb-wrap.box .orb,.breath-orb-wrap.box .ring{border-radius:15%}
+  .pattern{display:flex;gap:5px;margin:14px auto 0;width:100%;max-width:240px}
+  .pattern .seg{flex:1;display:grid;place-items:center;gap:1px;padding:8px 2px;border-radius:9px;background:rgba(244,236,219,.06);border:1px solid rgba(244,236,219,.13);font-family:var(--sans);font-size:.56rem;letter-spacing:.03em;color:#8fa092;transition:background .25s,color .25s,border-color .25s,transform .25s}
+  .pattern .seg b{font-size:.82rem;line-height:1;color:#b9c9bb;font-weight:600}
+  .pattern .seg.active{background:rgba(232,199,154,.2);border-color:rgba(232,199,154,.55);color:#fdf7ea;transform:translateY(-2px)}
+  .pattern .seg.active b{color:#f0d6b0}
+
 /* release / fade (reused by the reappraisal tool) */
 .release-msg{display:none;margin-top:14px;padding:16px;border-radius:14px;background:rgba(232,199,154,.12);border:1px dashed rgba(232,199,154,.4);font-family:var(--display);font-style:italic;font-size:1.05rem;color:#f3e6c9;text-align:center;font-variation-settings:"opsz" 36}
 .release-msg.show{display:block;animation:fadein .8s ease}
@@ -518,12 +526,17 @@ footer.foot a{color:#cdbfa6}
       <h3>The <em>physiological sigh</em></h3>
       <p class="tsub">Fastest-acting. A double inhale through the nose — a full breath, then a short sniff on top — followed by a long, slow exhale through the mouth.</p>
       <div class="breath-stage">
-        <div class="breath-orb-wrap">
+        <div class="breath-orb-wrap sigh">
           <div class="ring"></div><div class="ring r2"></div>
           <div class="orb" id="sighOrb"></div>
         </div>
         <div class="breath-phase" id="sighPhase">Press begin</div>
         <div class="breath-count" id="sighCount">&nbsp;</div>
+        <div class="pattern" id="sighPattern" aria-hidden="true">
+          <span class="seg" style="flex-grow:1.7"><b>↑</b></span>
+          <span class="seg" style="flex-grow:0.8"><b>↑</b></span>
+          <span class="seg" style="flex-grow:3.2"><b>↓</b></span>
+        </div>
       </div>
       <div class="breath-ctrl">
         <button class="btn primary" id="sighStart">Begin</button>
@@ -538,12 +551,18 @@ footer.foot a{color:#cdbfa6}
       <h3>Box <em>breathing</em></h3>
       <p class="tsub">Sustained reset. Inhale 4 · hold 4 · exhale 4 · hold 4 — the protocol high-performance operators use to make accurate decisions under acute physiological stress.</p>
       <div class="breath-stage">
-        <div class="breath-orb-wrap">
+        <div class="breath-orb-wrap box">
           <div class="ring"></div><div class="ring r2"></div>
           <div class="orb" id="boxOrb"></div>
         </div>
         <div class="breath-phase" id="boxPhase">Press begin</div>
         <div class="breath-count" id="boxCount">&nbsp;</div>
+        <div class="pattern" id="boxPattern" aria-hidden="true">
+          <span class="seg"><b>↑</b>4</span>
+          <span class="seg"><b>–</b>4</span>
+          <span class="seg"><b>↓</b>4</span>
+          <span class="seg"><b>–</b>4</span>
+        </div>
       </div>
       <div class="breath-ctrl">
         <button class="btn primary" id="boxStart">Begin</button>
@@ -628,6 +647,7 @@ function makeBreath(ids, steps, meta){
   const orb=document.getElementById(ids.orb),phase=document.getElementById(ids.phase),
         count=document.getElementById(ids.count),bStart=document.getElementById(ids.start),
         bStop=document.getElementById(ids.stop),bMeta=document.getElementById(ids.meta);
+  const segs=ids.pattern?[...document.getElementById(ids.pattern).querySelectorAll('.seg')]:[];
   if(!orb)return;
   let i=0,cycle=0,running=false,timer=null,counter=null,remain=0;
   function render(){
@@ -637,6 +657,7 @@ function makeBreath(ids, steps, meta){
     orb.style.transform='scale('+s.scale+')';
     orb.style.boxShadow=s.scale>0.75?'0 0 56px rgba(232,199,154,.55),inset 0 0 30px rgba(255,255,255,.2)':'0 0 24px rgba(232,199,154,.28),inset 0 0 30px rgba(255,255,255,.12)';
     remain=Math.round(s.dur/1000);count.textContent=remain>0?remain:'';
+    segs.forEach((el,idx)=>el.classList.toggle('active',idx===i));
   }
   function tick(){remain--;if(remain>=1)count.textContent=remain;}
   function advance(){
@@ -655,11 +676,12 @@ function makeBreath(ids, steps, meta){
   function stop(){
     running=false;bStart.textContent='Resume';bStart.disabled=false;bStop.disabled=true;
     clearTimeout(timer);clearInterval(counter);phase.textContent='Paused';count.textContent='';orb.style.transitionDuration='.4s,.4s';
+    segs.forEach(el=>el.classList.remove('active'));
   }
   bStart.addEventListener('click',start);bStop.addEventListener('click',stop);
 }
 makeBreath(
-  {orb:'sighOrb',phase:'sighPhase',count:'sighCount',start:'sighStart',stop:'sighStop',meta:'sighMeta'},
+  {orb:'sighOrb',phase:'sighPhase',count:'sighCount',start:'sighStart',stop:'sighStop',meta:'sighMeta',pattern:'sighPattern'},
   [
     {name:'Inhale (nose)',dur:1700,scale:1.0},
     {name:'Sniff (top up)',dur:700,scale:1.14},
@@ -668,7 +690,7 @@ makeBreath(
   c=>c>=2?('Nice — '+c+' sighs. Notice the shift.'):('Sigh '+(c+1)+' · aim for 1–3')
 );
 makeBreath(
-  {orb:'boxOrb',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta'},
+  {orb:'boxOrb',phase:'boxPhase',count:'boxCount',start:'boxStart',stop:'boxStop',meta:'boxMeta',pattern:'boxPattern'},
   [
     {name:'Breathe in',dur:4000,scale:1.0},
     {name:'Hold',dur:4000,scale:1.0},
